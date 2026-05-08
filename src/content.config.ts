@@ -71,4 +71,18 @@ const thanks = defineCollection({
   }),
 });
 
-export const collections = { events, announcements, achievements, thanks };
+// Booster meeting minutes. The PDF lives in public/downloads/minutes/ and
+// is referenced by `pdf` (path relative to /). One markdown entry per
+// meeting; the filename slug is unused — entries are sorted by `date`.
+const minutes = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/minutes" }),
+  schema: z.object({
+    date: z.coerce.date(),
+    title: z.string(),
+    pdf: z.string(),
+    summary: z.string().optional(),
+    published: z.boolean().default(true),
+  }),
+});
+
+export const collections = { events, announcements, achievements, thanks, minutes };
