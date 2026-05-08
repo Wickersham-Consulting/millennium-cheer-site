@@ -64,16 +64,37 @@ const {
 
     <footer class="mt-24 border-t border-slate-200 bg-slate-50">
       <div
-        class="mx-auto flex max-w-5xl flex-col gap-2 px-6 py-8 text-sm text-slate-500 sm:flex-row sm:justify-between"
+        class="mx-auto flex max-w-5xl flex-col gap-3 px-6 py-8 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between"
       >
         <p>&copy; {new Date().getFullYear()} Millennium Cheer Booster Club</p>
-        <p>
-          A 501(c)(3) nonprofit · <a
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <a
+            href="https://www.instagram.com/millennium_cheer/"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-1.5 text-slate-600 hover:text-purple-800"
+            aria-label="Instagram @millennium_cheer"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.336 3.608 1.311.974.974 1.249 2.241 1.311 3.608.058 1.266.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.062 1.366-.336 2.633-1.311 3.608-.974.974-2.241 1.249-3.608 1.311-1.266.058-1.645.07-4.85.07-3.204 0-3.584-.012-4.849-.07-1.366-.062-2.633-.336-3.608-1.311-.974-.974-1.249-2.241-1.311-3.608C2.175 15.747 2.163 15.367 2.163 12s.012-3.584.07-4.849c.062-1.366.336-2.633 1.311-3.608.974-.974 2.242-1.249 3.608-1.311C8.416 2.175 8.796 2.163 12 2.163zm0 1.838c-3.141 0-3.512.012-4.752.069-1.045.048-1.628.218-2.012.371-.508.197-.872.432-1.254.814-.382.382-.617.746-.814 1.254-.153.384-.323.967-.371 2.012-.057 1.24-.069 1.611-.069 4.752s.012 3.512.069 4.752c.048 1.045.218 1.628.371 2.012.197.508.432.872.814 1.254.382.382.746.617 1.254.814.384.153.967.323 2.012.371 1.24.057 1.611.069 4.752.069s3.512-.012 4.752-.069c1.045-.048 1.628-.218 2.012-.371.508-.197.872-.432 1.254-.814.382-.382.617-.746.814-1.254.153-.384.323-.967.371-2.012.057-1.24.069-1.611.069-4.752s-.012-3.512-.069-4.752c-.048-1.045-.218-1.628-.371-2.012-.197-.508-.432-.872-.814-1.254-.382-.382-.746-.617-1.254-.814-.384-.153-.967-.323-2.012-.371-1.24-.057-1.611-.069-4.752-.069zm0 3.135a4.864 4.864 0 1 1 0 9.728 4.864 4.864 0 0 1 0-9.728zm0 8.025a3.162 3.162 0 1 0 0-6.324 3.162 3.162 0 0 0 0 6.324zm6.182-8.227a1.137 1.137 0 1 1-2.274 0 1.137 1.137 0 0 1 2.274 0z"></path>
+            </svg>
+            @millennium_cheer
+          </a>
+          <span class="hidden text-slate-300 sm:inline">·</span>
+          <a
             href="mailto:MHSSpiritlinebc@gmail.com"
             class="text-slate-600 hover:text-purple-800"
             >MHSSpiritlinebc@gmail.com</a
           >
-        </p>
+          <span class="hidden text-slate-300 sm:inline">·</span>
+          <span>501(c)(3)</span>
+        </div>
       </div>
     </footer>
   </body>

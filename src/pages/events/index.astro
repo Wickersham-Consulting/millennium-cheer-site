@@ -3,8 +3,15 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
-const events = (await getCollection("events", ({ data }) => data.published))
-  .sort((a, b) => a.data.sortDate.getTime() - b.data.sortDate.getTime());
+// /events only lists action items — things you can sign up for or pay
+// toward. The full schedule (practices, games, meetings, etc.) is on
+// /calendar.
+const events = (
+  await getCollection(
+    "events",
+    ({ data }) => data.published && !!data.paymentLink,
+  )
+).sort((a, b) => a.data.sortDate.getTime() - b.data.sortDate.getTime());
 ---
 
 <Layout title="Events — Millennium Cheer Booster Club">
@@ -14,8 +21,9 @@ const events = (await getCollection("events", ({ data }) => data.published))
         Events &amp; Fundraisers
       </h1>
       <p class="mt-4 max-w-2xl text-slate-600">
-        Upcoming clinics, fundraisers, and team events. Payment links and
-        QR codes will appear on each event as they go live.
+        Active fundraisers, clinics, and sign-ups. For the full team
+        schedule — practices, games, meetings — see the
+        <a href="/calendar" class="font-medium text-purple-800 hover:text-purple-900">calendar</a>.
       </p>
     </div>
   </section>
@@ -64,9 +72,11 @@ const events = (await getCollection("events", ({ data }) => data.published))
                 <div class="mt-4">
                   <a
                     href={event.data.paymentLink}
+                    target="_blank"
+                    rel="noopener"
                     class="inline-flex items-center rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
                   >
-                    Pay or Sign Up
+                    Donate
                   </a>
                 </div>
               )}
