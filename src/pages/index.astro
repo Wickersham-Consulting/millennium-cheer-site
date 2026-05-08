@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import RichText from "../components/RichText.astro";
 import stateChampions from "../assets/photos/state-champions.jpg";
 
 const achievements = (await getCollection("achievements", ({ data }) => data.published))
@@ -93,7 +94,7 @@ const announcements = (await getCollection("announcements", ({ data }) => data.p
                   </p>
                   <h3 class="mt-1 text-lg font-semibold">{item.data.title}</h3>
                   {item.data.summary && (
-                    <p class="mt-2 text-sm text-slate-600">{item.data.summary}</p>
+                    <p class="mt-2 text-sm text-slate-600"><RichText text={item.data.summary} /></p>
                   )}
                 </div>
               </article>
@@ -134,7 +135,7 @@ const announcements = (await getCollection("announcements", ({ data }) => data.p
                     </span>
                   )}
                 </div>
-                <p class="mt-2 text-sm whitespace-pre-line text-slate-600">{item.data.summary}</p>
+                <p class="mt-2 text-sm whitespace-pre-line text-slate-600"><RichText text={item.data.summary} /></p>
                 <div class="mt-4 flex flex-wrap items-center gap-3">
                   {item.data.zoomLink && (
                     <a
