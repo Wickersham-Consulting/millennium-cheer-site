@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 
 const pdfPath = "/downloads/millennium-cheer-sponsorship-packet.pdf";
 const sponsorshipEmail = "sponsorship@millenniumcheer.com";
+const squarePaymentLink = "https://square.link/u/r1lTcucy?src=webqr";
 
 const tiers = [
   {
@@ -210,7 +211,14 @@ const tiers = [
             Pay securely through our Square payment link. Fastest path
             for any tier.
           </p>
-          <p class="mt-4 text-xs text-slate-400">Square link coming soon</p>
+          <a
+            href={squarePaymentLink}
+            target="_blank"
+            rel="noopener"
+            class="mt-4 inline-flex items-center rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
+          >
+            Pay with Square →
+          </a>
         </div>
         <div class="rounded-lg border border-slate-200 p-6">
           <h3 class="text-lg font-semibold">By Mail</h3>
