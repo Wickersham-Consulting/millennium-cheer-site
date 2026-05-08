@@ -3,6 +3,13 @@
 # Usage: bin/deploy.sh
 #
 # Requires: AWS CLI configured with the wc-cwickersham profile.
+#
+# This is the LOCAL deploy fallback. The normal flow is the GitHub Actions
+# `deploy.yml` workflow that auto-runs on every push to `main` (and is
+# manually triggerable via "Run workflow"). Use this script when:
+#   - GitHub Actions is down or you need to deploy from offline
+#   - You're testing a build locally and want to see it on the real domain
+#     without going through a PR (avoid for production use; PR is the gate)
 
 set -euo pipefail
 
