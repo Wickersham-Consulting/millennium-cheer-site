@@ -27,6 +27,10 @@ const announcements = defineCollection({
     summary: z.string(),
     contactEmail: z.string().email().optional(),
     deadline: z.coerce.date().optional(),
+    // Optional Zoom URL when the announcement is about a meeting (e.g. an
+    // election that takes place at the next booster meeting). Renders as a
+    // 'Join via Zoom' button on the announcement card.
+    zoomLink: z.string().url().optional(),
     published: z.boolean().default(true),
   }),
 });
