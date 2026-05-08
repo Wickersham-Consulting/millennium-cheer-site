@@ -1,0 +1,267 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const pdfPath = "/downloads/millennium-cheer-sponsorship-packet.pdf";
+const sponsorshipEmail = "sponsorship@millenniumcheer.com";
+
+const tiers = [
+  {
+    name: "Pyramid",
+    price: "$1,500",
+    accent: "from-purple-700 to-purple-500",
+    benefits: [
+      "Yearlong recognition on the cheer program website",
+      "LARGE business logo banner",
+      "Game Day social media shoutout (Instagram page + story)",
+      "PA announcement at all Varsity Home Games",
+      "4 tickets to MHS Football game for Jr. Tigers Cheer Event",
+      "Personalized social media takeover (Instagram page + story)",
+      "T-shirt toss at MHS home games",
+      "Plaque for sponsor to display",
+    ],
+  },
+  {
+    name: "Flyer",
+    price: "$1,000",
+    accent: "from-purple-600 to-purple-400",
+    benefits: [
+      "Yearlong recognition on the cheer program website",
+      "LARGE business logo banner",
+      "Game Day social media shoutout (Instagram page + story)",
+      "PA announcement at all Varsity Home Football Games",
+      "2 tickets to MHS Football game for Jr. Tigers Cheer Event",
+    ],
+  },
+  {
+    name: "Base",
+    price: "$500",
+    accent: "from-purple-500 to-purple-300",
+    benefits: [
+      "Yearlong recognition on the cheer program website",
+      "SMALL business logo banner",
+      "Game Day social media shoutout (Instagram page + story)",
+    ],
+  },
+];
+---
+
+<Layout
+  title="Sponsor Millennium Cheer | Booster Club"
+  description="Partner with the Millennium Cheer Booster Club. Sponsorship tiers for community businesses supporting Tigers cheerleaders."
+>
+  <section class="bg-purple-950 text-white">
+    <div class="mx-auto max-w-5xl px-6 py-20 sm:py-24">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-purple-300">
+        Become a Sponsor
+      </p>
+      <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
+        Partner with <span class="text-purple-300">Millennium Cheer</span>.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-purple-100">
+        Local businesses sponsoring our cheer program reach hundreds of
+        families and supporters, demonstrate their commitment to youth
+        development, and make a lasting impact in the lives of our
+        student-athletes — all while being recognized at games, on the
+        field, and online throughout the season.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={pdfPath}
+          download
+          class="inline-flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-purple-900 shadow-sm transition hover:bg-purple-50"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M10.75 2.75a.75.75 0 0 0-1.5 0v8.614L6.295 8.235a.75.75 0 1 0-1.09 1.03l4.25 4.5a.75.75 0 0 0 1.09 0l4.25-4.5a.75.75 0 0 0-1.09-1.03l-2.955 3.129V2.75Z"
+            ></path>
+            <path
+              d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z"
+            ></path>
+          </svg>
+          Download Sponsorship Packet (PDF)
+        </a>
+        <a
+          href="#tiers"
+          class="inline-flex items-center rounded-md border border-purple-300/60 bg-purple-900/30 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-purple-900/60"
+        >
+          See the Tiers
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-b border-slate-100 bg-white">
+    <div class="mx-auto grid max-w-5xl gap-10 px-6 py-16 md:grid-cols-2">
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight">Our Mission</h2>
+        <p class="mt-4 text-slate-700">
+          Millennium Cheer empowers student-athletes to excel in spirit,
+          leadership, and athleticism. We foster a culture of integrity,
+          teamwork, and school pride while promoting personal growth,
+          academic achievement, and community engagement.
+        </p>
+        <p class="mt-4 text-slate-700">
+          As representatives of Millennium High School and the Goodyear
+          community, we strive to uplift, inspire, and lead — on the
+          sidelines, on the mat, and beyond.
+        </p>
+        <p class="mt-6 text-2xl font-black uppercase italic tracking-wide text-purple-800">
+          Fear the Roar
+        </p>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight">Our Story</h2>
+        <p class="mt-4 text-slate-700">
+          Millennium Cheer is more than just a team — it's a family built
+          on passion, perseverance, and pride. As a Division 1 high school
+          program in the heart of Goodyear, Arizona, our athletes dedicate
+          countless hours to perfecting their craft, supporting our
+          school, and representing our community with excellence.
+        </p>
+        <p class="mt-4 text-slate-700">
+          Your support helps us continue this journey — providing
+          uniforms, travel opportunities, training, and the resources
+          needed to shine. When you invest in Millennium Cheer, you're not
+          just backing a team — you're uplifting a generation of strong,
+          spirited leaders.
+        </p>
+        <p class="mt-6 text-sm text-slate-500">
+          We are a 501(c)(3) organization. Tax ID #75-3219700.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tiers" class="bg-slate-50">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <h2 class="text-2xl font-bold tracking-tight">Sponsorship Tiers</h2>
+      <p class="mt-3 max-w-2xl text-slate-600">
+        Tier names follow cheer terminology — pick the level that works
+        for your business. Premium options are also available for
+        special-event partnerships.
+      </p>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          tiers.map((tier) => (
+            <article class="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+              <div class={`bg-gradient-to-b ${tier.accent} p-6 text-white`}>
+                <p class="text-xs font-semibold uppercase tracking-widest">
+                  Tier
+                </p>
+                <h3 class="mt-1 text-3xl font-black uppercase tracking-tight">
+                  {tier.name}
+                </h3>
+                <p class="mt-2 text-3xl font-bold">{tier.price}</p>
+              </div>
+              <ul class="flex-1 space-y-2 p-6 text-sm text-slate-700">
+                {tier.benefits.map((b) => (
+                  <li class="flex gap-2">
+                    <span class="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-purple-700" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+
+      <article class="mt-10 rounded-lg border-2 border-dashed border-purple-300 bg-white p-8">
+        <div class="flex flex-wrap items-baseline justify-between gap-4">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-purple-700">
+              Premium Sponsor
+            </p>
+            <h3 class="mt-1 text-2xl font-bold">Special-Event Partnerships</h3>
+          </div>
+          <p class="text-2xl font-bold text-purple-900">
+            $2,500 · $5,000 · $7,500
+          </p>
+        </div>
+        <p class="mt-4 text-slate-700">
+          Larger custom sponsorships for season-wide visibility, naming
+          rights for specific events (clinics, fundraisers, banquets), or
+          exclusive placement opportunities. We'll work with you on the
+          benefits package.
+        </p>
+        <a
+          href={`mailto:${sponsorshipEmail}?subject=Premium%20Sponsorship%20Inquiry`}
+          class="mt-6 inline-flex items-center rounded-md bg-purple-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-purple-800"
+        >
+          Inquire About Premium
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="border-y border-slate-100 bg-white">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <h2 class="text-2xl font-bold tracking-tight">Three Ways to Give</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <div class="rounded-lg border border-slate-200 p-6">
+          <h3 class="text-lg font-semibold">Online</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Pay securely through our Square payment link. Fastest path
+            for any tier.
+          </p>
+          <p class="mt-4 text-xs text-slate-400">Square link coming soon</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-6">
+          <h3 class="text-lg font-semibold">By Mail</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Make checks payable to <strong>MHS Spiritline BC</strong> and mail to:
+          </p>
+          <address class="mt-3 not-italic text-sm text-slate-700">
+            MHS Spiritline BC<br />
+            P.O. Box 544<br />
+            Litchfield Park, AZ 85340
+          </address>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-6">
+          <h3 class="text-lg font-semibold">Talk to Us</h3>
+          <p class="mt-2 text-sm text-slate-600">
+            Have questions or want a custom partnership? Reach out and
+            we'll work with you on the right fit.
+          </p>
+          <a
+            href={`mailto:${sponsorshipEmail}`}
+            class="mt-4 inline-block text-sm font-semibold text-purple-800 hover:text-purple-900"
+          >
+            {sponsorshipEmail} →
+          </a>
+        </div>
+      </div>
+      <p class="mt-8 text-sm text-slate-500">
+        After signing up, e-mail your high-resolution logo to
+        <a
+          href="mailto:mhsspiritlinebc@gmail.com"
+          class="font-medium text-purple-800 hover:text-purple-900"
+          >mhsspiritlinebc@gmail.com</a
+        > so we can include it on your banner and social media shoutouts.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-16">
+    <div class="rounded-lg border border-slate-200 bg-purple-50 p-8 text-center">
+      <h2 class="text-xl font-bold tracking-tight">Ready to sponsor?</h2>
+      <p class="mt-3 text-slate-700">
+        Download the full packet to print, share with your team, or email to
+        a colleague.
+      </p>
+      <a
+        href={pdfPath}
+        download
+        class="mt-5 inline-flex items-center gap-2 rounded-md bg-purple-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-purple-800"
+      >
+        Download Sponsorship Packet (PDF)
+      </a>
+    </div>
+  </section>
+</Layout>
