@@ -51,4 +51,24 @@ const achievements = defineCollection({
     }),
 });
 
-export const collections = { events, announcements, achievements };
+// Post-payment "thank you" pages used as Square Payment Link redirect
+// targets. Each entry corresponds to a /thanks/<slug> route. The slug is
+// the markdown filename, e.g. donate.md -> /thanks/donate.
+const thanks = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/thanks" }),
+  schema: z.object({
+    title: z.string(),
+    headline: z.string(),
+    summary: z.string().optional(),
+    nextSteps: z.array(z.string()).optional(),
+    showLogoUploadCTA: z.boolean().default(false),
+    primaryCTA: z
+      .object({
+        label: z.string(),
+        href: z.string(),
+      })
+      .optional(),
+  }),
+});
+
+export const collections = { events, announcements, achievements, thanks };
