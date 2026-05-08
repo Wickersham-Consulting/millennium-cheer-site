@@ -18,10 +18,20 @@ const announcements = (await getCollection("announcements", ({ data }) => data.p
         src={stateChampions}
         alt=""
         loading="eager"
-        class="h-full w-full object-cover"
+        class="absolute inset-0 h-full w-full object-cover"
         widths={[800, 1200, 1800]}
         sizes="100vw"
       />
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        class="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/videos/cheer-clip.mp4" type="video/mp4" />
+      </video>
     </div>
     <div
       class="absolute inset-0 bg-gradient-to-r from-purple-950 via-purple-950/85 to-purple-950/40"
