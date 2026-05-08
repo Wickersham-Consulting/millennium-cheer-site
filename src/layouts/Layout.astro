@@ -31,7 +31,7 @@ const {
   <body class="min-h-full bg-white text-slate-900 antialiased">
     <header class="border-b border-slate-200 bg-white">
       <div
-        class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4"
+        class="mx-auto flex max-w-5xl flex-col items-start gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
       >
         <a href="/" class="flex items-center gap-3 group">
           <Image
@@ -49,7 +49,7 @@ const {
             <span class="hidden text-xs text-slate-500 sm:block">Booster Club</span>
           </div>
         </a>
-        <nav class="hidden gap-6 text-sm text-slate-600 sm:flex">
+        <nav class="flex flex-wrap gap-x-5 gap-y-1 text-sm text-slate-600">
           <a href="/" class="hover:text-purple-800">Home</a>
           <a href="/events" class="hover:text-purple-800">Events</a>
           <a href="/calendar" class="hover:text-purple-800">Calendar</a>
