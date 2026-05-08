@@ -1,0 +1,79 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const events = (await getCollection("events", ({ data }) => data.published))
+  .sort((a, b) => a.data.sortDate.getTime() - b.data.sortDate.getTime());
+---
+
+<Layout title="Events — Millennium Cheer Booster Club">
+  <section class="border-b border-slate-100 bg-purple-50">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
+        Events &amp; Fundraisers
+      </h1>
+      <p class="mt-4 max-w-2xl text-slate-600">
+        Upcoming clinics, fundraisers, and team events. Payment links and
+        QR codes will appear on each event as they go live.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-12">
+    {
+      events.length === 0 ? (
+        <p class="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-sm text-slate-500">
+          No events posted right now — check back soon.
+        </p>
+      ) : (
+        <div class="space-y-6">
+          {events.map((event) => (
+            <article class="rounded-lg border border-slate-200 bg-white p-6">
+              <div class="flex flex-wrap items-baseline justify-between gap-2">
+                <h2 class="text-xl font-semibold">{event.data.title}</h2>
+                <span class="text-sm font-medium text-purple-800">
+                  {event.data.when}
+                </span>
+              </div>
+              <dl class="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-sm text-slate-600">
+                {event.data.location && (
+                  <div>
+                    <dt class="inline font-medium text-slate-700">Location:</dt>{" "}
+                    <dd class="inline">{event.data.location}</dd>
+                  </div>
+                )}
+                {event.data.partner && (
+                  <div>
+                    <dt class="inline font-medium text-slate-700">With:</dt>{" "}
+                    <dd class="inline">{event.data.partner}</dd>
+                  </div>
+                )}
+              </dl>
+              <p class="mt-3 text-slate-700">{event.data.summary}</p>
+              {event.data.flyer && (
+                <Image
+                  src={event.data.flyer}
+                  alt={`Flyer for ${event.data.title}`}
+                  widths={[400, 800]}
+                  sizes="(min-width: 640px) 400px, 100vw"
+                  class="mt-4 max-w-sm rounded-md border border-slate-200"
+                />
+              )}
+              {event.data.paymentLink && (
+                <div class="mt-4">
+                  <a
+                    href={event.data.paymentLink}
+                    class="inline-flex items-center rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
+                  >
+                    Pay or Sign Up
+                  </a>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</Layout>
