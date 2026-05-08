@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Content Manager — Millennium Cheer</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <style>
+      body {
+        font:
+          14px/1.5 -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          system-ui,
+          sans-serif;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Netlify Identity widget — handles login (Google + magic link), signup,
+      and processing invite tokens from Netlify-sent invite emails. Decap CMS
+      itself looks for the widget on the global object and uses it for auth
+      when the backend is `git-gateway`.
+    -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!--
+      Decap CMS — runs entirely in the browser. Reads /admin/config.yml,
+      uses Netlify Identity for login, then commits to GitHub via the Git
+      Gateway proxy that Netlify operates.
+    -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <script>
+      // After signup, kick the user back to /admin so the editor loads.
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function (user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function () {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
