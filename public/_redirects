@@ -1,0 +1,16 @@
+# Netlify-specific redirects file. Read by Netlify at deploy time;
+# AWS S3+CloudFront ignores it (will sit as a plain text file at
+# /_redirects on the AWS-served site, which is harmless).
+#
+# Why we need this: Netlify Identity's invite emails generate links of
+# the form https://<netlify-subdomain>/?invite_token=... pointing at the
+# site root. We host the Decap CMS UI at /admin/, so we rewrite root to
+# the admin index page. The invite_token query string is preserved, the
+# Identity widget on the admin page detects it, and the signup flow
+# kicks off normally.
+#
+# Status 200 = rewrite (URL stays /), as opposed to 301/302 (redirect).
+# Rewrite is the right call so Netlify Identity sees the token in the
+# URL the widget actually loads from.
+
+/  /admin/index.html  200
