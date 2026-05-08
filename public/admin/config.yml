@@ -1,0 +1,281 @@
+# Decap CMS configuration. Editors hit /admin in a browser; this file
+# tells Decap how to talk to GitHub (via Netlify's Git Gateway), where
+# content lives in the repo, and how to render the editor for each
+# content type.
+#
+# Editor login flow: Netlify Identity (Google or magic link) → Git Gateway
+# → GitHub commits on a feature branch → editor publishes → merges to main
+# → deploy workflow ships the site.
+
+backend:
+  name: git-gateway
+  branch: main
+  # Use "Editorial Workflow" so changes go through a draft → ready → published
+  # state rather than committing directly to main. Each draft becomes a PR
+  # under the hood; publishing merges it.
+  open_authoring: false
+
+# Allow `npm run dev` to run a local proxy if we ever want to author content
+# without going through Netlify (rare; useful for testing schema changes).
+local_backend: true
+
+# Default media folder. Per-collection overrides (below) put images into
+# the right asset subfolder so Astro's image pipeline finds them.
+media_folder: "src/assets/uploads"
+public_folder: "/uploads"
+
+site_url: https://millenniumcheer.com
+display_url: https://millenniumcheer.com
+logo_url: https://millenniumcheer.com/_astro/logo-badge.BTZxGvgh_Z1Yd041.webp
+
+# Editor preview pane on the right of the form is enabled by default;
+# turning it off until we wire up matching templates.
+show_preview_links: true
+
+collections:
+  # ---------------------------------------------------------------------
+  # Events — fundraisers, clinics, games, meetings, school dates.
+  # Anything with a paymentLink shows up on /events; everything appears
+  # on /calendar.
+  # ---------------------------------------------------------------------
+  - name: events
+    label: Events
+    label_singular: Event
+    folder: src/content/events
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{when}} — {{title}}"
+    sortable_fields: [sortDate, title]
+    media_folder: "../../assets/flyers"
+    public_folder: "../../assets/flyers"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "When (display text)",
+          name: "when",
+          widget: "string",
+          hint: "How the date shows on the page, e.g. 'Saturday, May 30, 2026 · 8–11 AM' or 'June 1–4, 8–11, 2026'.",
+        }
+      - {
+          label: "Sort date",
+          name: "sortDate",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          picker_utc: true,
+          hint: "Used to order events in the calendar. Use the first day for multi-day events.",
+        }
+      - {
+          label: "Location",
+          name: "location",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Partner / sponsor",
+          name: "partner",
+          widget: "string",
+          required: false,
+          hint: "e.g. 'Dauntless Athletics' for the tumbling clinics.",
+        }
+      - {
+          label: "Square payment link",
+          name: "paymentLink",
+          widget: "string",
+          required: false,
+          hint: "Paste the URL from Square. Events with a payment link show up on the /events page; events without one are calendar-only.",
+        }
+      - {
+          label: "Flyer image",
+          name: "flyer",
+          widget: "image",
+          required: false,
+          hint: "Optional poster/flyer shown on the event card.",
+        }
+      - {
+          label: "Summary",
+          name: "summary",
+          widget: "text",
+          hint: "Short paragraph describing the event.",
+        }
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: true,
+          hint: "Untick to hide the event without deleting it.",
+        }
+
+  # ---------------------------------------------------------------------
+  # Announcements — board elections, meetings, important parent notices.
+  # Renders on the homepage in the Announcements section.
+  # ---------------------------------------------------------------------
+  - name: announcements
+    label: Announcements
+    label_singular: Announcement
+    folder: src/content/announcements
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{year}}-{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Date posted",
+          name: "date",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          picker_utc: true,
+        }
+      - {
+          label: "Summary",
+          name: "summary",
+          widget: "text",
+          hint: "The body text shown on the homepage announcement card.",
+        }
+      - {
+          label: "Contact email",
+          name: "contactEmail",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Deadline",
+          name: "deadline",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          picker_utc: true,
+          required: false,
+          hint: "Optional. Renders as a 'Deadline:' badge on the card.",
+        }
+      - {
+          label: "Zoom link",
+          name: "zoomLink",
+          widget: "string",
+          required: false,
+          hint: "Standing booster meeting Zoom URL. Renders as a 'Join via Zoom →' button.",
+        }
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }
+
+  # ---------------------------------------------------------------------
+  # Achievements — competition wins. Renders on the homepage as cards.
+  # Date and season are shown on the card.
+  # ---------------------------------------------------------------------
+  - name: achievements
+    label: Achievements
+    label_singular: Achievement
+    folder: src/content/achievements
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{year}}-{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [date, title]
+    media_folder: "../../assets/photos"
+    public_folder: "../../assets/photos"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Season",
+          name: "season",
+          widget: "string",
+          hint: "e.g. '2025–26 Season'",
+        }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          picker_utc: true,
+        }
+      - {
+          label: "Photo",
+          name: "photo",
+          widget: "image",
+          hint: "Featured image on the achievement card.",
+        }
+      - {
+          label: "Photo alt text",
+          name: "photoAlt",
+          widget: "string",
+          hint: "Description for screen readers / when the image fails to load.",
+        }
+      - {
+          label: "Summary",
+          name: "summary",
+          widget: "text",
+          required: false,
+        }
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }
+
+  # ---------------------------------------------------------------------
+  # Thanks pages — Square Payment Link redirect targets at /thanks/<slug>.
+  # ---------------------------------------------------------------------
+  - name: thanks
+    label: Thanks Pages
+    label_singular: Thanks Page
+    folder: src/content/thanks
+    create: true
+    delete: false
+    extension: md
+    format: yaml-frontmatter
+    summary: "/thanks/{{slug}} — {{headline}}"
+    fields:
+      - {
+          label: "Page title (browser tab)",
+          name: "title",
+          widget: "string",
+        }
+      - {
+          label: "Headline",
+          name: "headline",
+          widget: "string",
+          hint: "Big text at the top of the page.",
+        }
+      - {
+          label: "Summary",
+          name: "summary",
+          widget: "text",
+          required: false,
+        }
+      - {
+          label: "Next steps",
+          name: "nextSteps",
+          widget: "list",
+          required: false,
+          hint: "Bullets shown in a 'What's next' card.",
+        }
+      - {
+          label: "Show logo upload reminder",
+          name: "showLogoUploadCTA",
+          widget: "boolean",
+          default: false,
+          hint: "Sponsorship-only — reminds the new sponsor to email their logo.",
+        }
+      - label: "Primary call-to-action button"
+        name: "primaryCTA"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Link", name: "href", widget: "string" }
