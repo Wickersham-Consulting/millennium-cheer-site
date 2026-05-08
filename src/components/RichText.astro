@@ -1,0 +1,13 @@
+---
+import { marked } from "marked";
+
+interface Props {
+  text: string;
+  block?: boolean;
+}
+
+const { text, block = false } = Astro.props;
+const html = block ? await marked.parse(text) : await marked.parseInline(text);
+---
+
+<Fragment set:html={html} />
