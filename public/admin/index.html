@@ -7,6 +7,15 @@
     <title>Content Manager — Millennium Cheer</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <!--
+      Tell Decap exactly where to load its config from. Without this, Decap
+      derives the path from the current document URL — which is wrong on the
+      Netlify deploy because we rewrite root '/' to '/admin/index.html' (so
+      invite-token links work at the Netlify domain root) without changing
+      the URL bar. With this tag, the path is unambiguous and the same on
+      both AWS and Netlify.
+    -->
+    <link rel="cms-config-url" type="text/yaml" href="/admin/config.yml" />
     <style>
       body {
         font:
