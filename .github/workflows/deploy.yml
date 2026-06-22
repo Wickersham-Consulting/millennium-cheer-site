@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Daily rebuild so the calendar picks up coaches' SportsYou changes even when
+  # no commit lands. 13:00 UTC = 6:00 AM Arizona.
+  schedule:
+    - cron: "0 13 * * *"
 
 permissions:
   id-token: write   # for OIDC role assumption
@@ -32,6 +36,10 @@ jobs:
 
       - name: build site
         run: npm run build
+        env:
+          # Live SportsYou calendar feed. When unset (or unreachable), the build
+          # falls back to the committed snapshot at src/data/sportsyou.ics.
+          SPORTSYOU_ICS_URL: ${{ secrets.SPORTSYOU_ICS_URL }}
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:

@@ -1,38 +1,49 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import { loadCalendar, type CalEvent } from "../lib/sportsyou";
+import snapshotIcs from "../data/sportsyou.ics?raw";
 
-const events = (await getCollection("events", ({ data }) => data.published))
-  .sort((a, b) => a.data.sortDate.getTime() - b.data.sortDate.getTime());
+const events = await loadCalendar(snapshotIcs);
 
-// Group events by year-month for monthly blocks.
-const byMonthKey: Record<string, typeof events> = {};
-for (const event of events) {
-  const date = event.data.sortDate;
-  const key = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}`;
-  if (!byMonthKey[key]) byMonthKey[key] = [];
-  byMonthKey[key].push(event);
+// All dates are displayed in Arizona time (no DST → fixed UTC-7).
+const TZ = "America/Phoenix";
+const fmtMonth = new Intl.DateTimeFormat("en-US", { timeZone: TZ, month: "long", year: "numeric" });
+const fmtTime = new Intl.DateTimeFormat("en-US", { timeZone: TZ, hour: "numeric", minute: "2-digit" });
+const fmtDayParts = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" });
+
+// Calendar day for an event. All-day events were stored at UTC midnight, so read
+// their date straight off (converting to AZ would shift them back a day); timed
+// events are converted into Arizona time.
+function dayParts(e: CalEvent): { y: number; m: number; d: number } {
+  if (e.allDay) {
+    return { y: e.start.getUTCFullYear(), m: e.start.getUTCMonth() + 1, d: e.start.getUTCDate() };
+  }
+  const [y, m, d] = fmtDayParts.format(e.start).split("-").map(Number);
+  return { y, m, d };
 }
 
-// Show this month and the next 11. Fill in empty months so the calendar
-// looks like a real year-at-a-glance even before all events are loaded.
-const now = new Date();
-const startMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
-const months: { key: string; label: string; entries: typeof events }[] = [];
+const monthKey = (y: number, m: number) => `${y}-${String(m).padStart(2, "0")}`;
+
+// Bucket events by Arizona month.
+const byMonth: Record<string, CalEvent[]> = {};
+for (const e of events) {
+  const { y, m } = dayParts(e);
+  (byMonth[monthKey(y, m)] ??= []).push(e);
+}
+
+// Window: the current Arizona month plus the next 11.
+const nowParts = fmtDayParts.format(new Date()).split("-").map(Number);
+const months: { key: string; label: string; entries: CalEvent[] }[] = [];
 for (let i = 0; i < 12; i++) {
-  const d = new Date(Date.UTC(startMonth.getUTCFullYear(), startMonth.getUTCMonth() + i, 1));
-  const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
-  const label = d.toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-  months.push({ key, label, entries: byMonthKey[key] ?? [] });
+  const d = new Date(Date.UTC(nowParts[0], nowParts[1] - 1 + i, 1, 12));
+  const key = monthKey(d.getUTCFullYear(), d.getUTCMonth() + 1);
+  const entries = (byMonth[key] ?? []).sort(
+    (a, b) => a.start.getTime() - b.start.getTime(),
+  );
+  months.push({ key, label: fmtMonth.format(d), entries });
 }
 
-function dayOfMonth(d: Date) {
-  return String(d.getUTCDate()).padStart(2, "0");
-}
+const hasAnything = months.some((m) => m.entries.length > 0);
 ---
 
 <Layout
@@ -45,18 +56,18 @@ function dayOfMonth(d: Date) {
         Year at a Glance
       </h1>
       <p class="mt-4 max-w-2xl text-slate-600">
-        Upcoming events, fundraisers, and team milestones. Times subject
-        to change — check back regularly. Need to add or correct an
-        event? Email
-        <a
-          href="mailto:mhsspiritlinebc@gmail.com"
-          class="font-medium text-purple-800 hover:text-purple-900"
-        >mhsspiritlinebc@gmail.com</a>.
+        Upcoming games, fundraisers, and team milestones, synced from the
+        coaches' official SportsYou calendar. Routine practices and weightroom
+        sessions are shown in gray. Times are Arizona time and subject to
+        change — check SportsYou for the latest.
       </p>
     </div>
   </section>
 
   <section class="mx-auto max-w-6xl px-6 py-12">
+    {!hasAnything && (
+      <p class="text-center text-slate-500">The calendar is being updated — check back soon.</p>
+    )}
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {
         months.map((month) => (
@@ -73,16 +84,31 @@ function dayOfMonth(d: Date) {
                 <ul class="space-y-3 text-sm">
                   {month.entries.map((event) => (
                     <li class="flex gap-3">
-                      <span class="shrink-0 rounded bg-purple-100 px-2 py-0.5 font-mono text-xs font-semibold text-purple-800">
-                        {dayOfMonth(event.data.sortDate)}
+                      <span
+                        class:list={[
+                          "shrink-0 rounded px-2 py-0.5 font-mono text-xs font-semibold",
+                          event.routine
+                            ? "bg-slate-100 text-slate-400"
+                            : "bg-purple-100 text-purple-800",
+                        ]}
+                      >
+                        {String(dayParts(event).d).padStart(2, "0")}
                       </span>
                       <div class="flex-1">
-                        <p class="font-semibold text-slate-800">
-                          {event.data.title}
+                        <p
+                          class:list={[
+                            event.routine
+                              ? "text-slate-400"
+                              : "font-semibold text-slate-800",
+                          ]}
+                        >
+                          {event.title}
                         </p>
-                        <p class="text-xs text-slate-500">{event.data.when}</p>
-                        {event.data.location && (
-                          <p class="text-xs text-slate-500">{event.data.location}</p>
+                        {!event.allDay && (
+                          <p class="text-xs text-slate-500">{fmtTime.format(event.start)}</p>
+                        )}
+                        {event.location && (
+                          <p class="text-xs text-slate-500">{event.location}</p>
                         )}
                       </div>
                     </li>
