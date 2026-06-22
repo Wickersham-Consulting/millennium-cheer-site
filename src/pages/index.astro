@@ -131,12 +131,23 @@ const announcements = (await getCollection("announcements", ({ data }) => data.p
                         month: "long",
                         day: "numeric",
                         year: "numeric",
+                        timeZone: "UTC",
                       })}
                     </span>
                   )}
                 </div>
                 <p class="mt-2 text-sm whitespace-pre-line text-slate-600"><RichText text={item.data.summary} /></p>
                 <div class="mt-4 flex flex-wrap items-center gap-3">
+                  {item.data.link && (
+                    <a
+                      href={item.data.link}
+                      target="_blank"
+                      rel="noopener"
+                      class="inline-flex items-center rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
+                    >
+                      {item.data.linkLabel ?? "Learn more →"}
+                    </a>
+                  )}
                   {item.data.zoomLink && (
                     <a
                       href={item.data.zoomLink}

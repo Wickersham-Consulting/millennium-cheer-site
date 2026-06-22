@@ -31,6 +31,10 @@ const announcements = defineCollection({
     // election that takes place at the next booster meeting). Renders as a
     // 'Join via Zoom' button on the announcement card.
     zoomLink: z.string().url().optional(),
+    // Optional call-to-action link (e.g. a Google Form to fill out). Renders as
+    // a primary button on the announcement card; linkLabel sets the button text.
+    link: z.string().url().optional(),
+    linkLabel: z.string().optional(),
     published: z.boolean().default(true),
   }),
 });
