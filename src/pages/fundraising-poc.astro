@@ -1,0 +1,175 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// PROOF OF CONCEPT — three fundraising-progress graphics for the board to
+// choose from. Not linked in the site nav. The "raised" amount is a
+// placeholder so the concepts show partially filled; the real version would
+// read a goal + raised number you can edit in the CMS.
+const goal = 18900;
+const raised = 7560; // <-- placeholder; ~40%
+const pct = Math.min(100, Math.round((raised / goal) * 100));
+const money = (n: number) => "$" + Math.round(n).toLocaleString("en-US");
+
+// Cheer-skill milestones, easy → hard (mix of tumbling + a stunt finish).
+// These are a starting point — the board can reorder / rename.
+const milestones = [
+  { at: 0, skill: "Cartwheel" },
+  { at: 25, skill: "Back Handspring" },
+  { at: 50, skill: "Round-off Back Handspring Tuck" },
+  { at: 75, skill: "Standing Full" },
+  { at: 100, skill: "Full-Up to Extension — Hit Zero! 🎉" },
+];
+
+// Pyramid concept tiers (bottom → top).
+const tiers = [
+  { from: 0, label: "Bases In — Load!", sub: "Getting started" },
+  { from: 33, label: "Prep Level", sub: "Building momentum" },
+  { from: 66, label: "Extension", sub: "Almost there" },
+  { from: 90, label: "Full-Up — Hit Zero!", sub: "Goal!" },
+];
+const currentTier = [...tiers].reverse().find((t) => pct >= t.from) ?? tiers[0];
+---
+
+<Layout title="Fundraising Thermometer — Concept Previews">
+  <section class="border-b border-slate-100 bg-purple-50">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <p class="text-sm font-semibold uppercase tracking-wider text-purple-700">
+        Internal Preview — not linked publicly
+      </p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+        Fundraising Goal Tracker — Concepts
+      </h1>
+      <p class="mt-4 max-w-2xl text-slate-600">
+        Three draft concepts for tracking our <strong>{money(goal)}</strong> season
+        goal (fundraising + sponsorships). Progress shown here ({money(raised)}, {pct}%)
+        is a placeholder. Milestone skills are a starting point — easy to rename or
+        reorder. Pick a favorite (or mix), and the real version can update from a
+        number you edit in the CMS.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-12">
+    <div class="grid gap-12 lg:grid-cols-3">
+      <!-- ============ Concept 1: Tumbling Thermometer ============ -->
+      <div class="rounded-xl border border-slate-200 p-6">
+        <h2 class="text-lg font-bold">Concept 1 — Tumbling Thermometer</h2>
+        <p class="mt-1 text-sm text-slate-500">
+          Classic thermometer; each level up the tube is a harder skill.
+        </p>
+        <div class="mt-8 flex justify-center gap-6">
+          <!-- tube -->
+          <div class="flex flex-col items-center">
+            <div class="relative h-72 w-6 rounded-full bg-slate-200">
+              <div
+                class="absolute bottom-0 w-full rounded-full bg-gradient-to-t from-purple-700 to-purple-400"
+                style={`height:${pct}%`}
+              >
+              </div>
+            </div>
+            <!-- bulb -->
+            <div class="-mt-2 flex h-12 w-12 items-center justify-center rounded-full bg-purple-700 text-xs font-bold text-white ring-4 ring-purple-200">
+              {pct}%
+            </div>
+          </div>
+          <!-- milestone labels: hardest at top, evenly spaced over the tube height -->
+          <ul class="flex h-72 flex-1 flex-col justify-between">
+            {[...milestones].reverse().map((m) => (
+              <li class="flex items-center gap-2">
+                <span
+                  class:list={[
+                    "h-2 w-2 shrink-0 rounded-full",
+                    pct >= m.at ? "bg-purple-700" : "bg-slate-300",
+                  ]}
+                />
+                <span class="text-xs leading-tight">
+                  <span class:list={[pct >= m.at ? "font-semibold text-slate-800" : "text-slate-400"]}>
+                    {m.skill}
+                  </span>
+                  <span class="block text-[10px] text-slate-400">{money((m.at / 100) * goal)}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- ============ Concept 2: Build the Pyramid ============ -->
+      <div class="rounded-xl border border-slate-200 p-6">
+        <h2 class="text-lg font-bold">Concept 2 — Build the Pyramid</h2>
+        <p class="mt-1 text-sm text-slate-500">
+          The pyramid fills from the ground up as we hit our goal.
+        </p>
+        <div class="mt-8">
+          <svg viewBox="0 0 200 180" class="mx-auto w-full max-w-[16rem]" role="img" aria-label={`${pct}% to goal`}>
+            <defs>
+              <clipPath id="tri">
+                <polygon points="100,8 192,172 8,172" />
+              </clipPath>
+              <linearGradient id="grad" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#6b21a8" />
+                <stop offset="100%" stop-color="#c084fc" />
+              </linearGradient>
+            </defs>
+            <polygon points="100,8 192,172 8,172" fill="#e2e8f0" />
+            <g clip-path="url(#tri)">
+              <rect x="0" width="200" y={172 - 164 * (pct / 100)} height={164 * (pct / 100)} fill="url(#grad)" />
+            </g>
+            <!-- tier divider lines -->
+            <line x1="8" y1="172" x2="192" y2="172" stroke="#cbd5e1" stroke-width="1" />
+            <line x1="38" y1="118" x2="162" y2="118" stroke="#fff" stroke-width="1" opacity="0.6" />
+            <line x1="62" y1="64" x2="138" y2="64" stroke="#fff" stroke-width="1" opacity="0.6" />
+            <text x="100" y="100" text-anchor="middle" class="fill-white" font-size="22" font-weight="700">{pct}%</text>
+          </svg>
+          <p class="mt-3 text-center text-sm font-semibold text-purple-800">{currentTier.label}</p>
+          <p class="text-center text-xs text-slate-500">{money(raised)} of {money(goal)}</p>
+        </div>
+      </div>
+
+      <!-- ============ Concept 3: Spirit Track ============ -->
+      <div class="rounded-xl border border-slate-200 p-6">
+        <h2 class="text-lg font-bold">Concept 3 — Spirit Track</h2>
+        <p class="mt-1 text-sm text-slate-500">
+          A horizontal bar — compact enough to sit on the homepage.
+        </p>
+        <div class="mt-10">
+          <div class="flex items-center justify-between text-sm">
+            <span class="font-semibold text-purple-800">{money(raised)}</span>
+            <span class="text-slate-400">{money(goal)}</span>
+          </div>
+          <div class="relative mt-2 h-5 w-full rounded-full bg-slate-200">
+            <div
+              class="flex h-full items-center justify-end rounded-full bg-gradient-to-r from-purple-700 to-purple-400 pr-2 text-[10px] font-bold text-white"
+              style={`width:${Math.max(pct, 8)}%`}
+            >
+              {pct}%
+            </div>
+            <!-- milestone ticks -->
+            {milestones.filter((m) => m.at > 0 && m.at < 100).map((m) => (
+              <span
+                class="absolute top-1/2 h-5 w-0.5 -translate-y-1/2 bg-white/70"
+                style={`left:${m.at}%`}
+              />
+            ))}
+          </div>
+          <p class="mt-4 text-center text-sm">
+            <span class="font-semibold text-slate-800">Next milestone:</span>{" "}
+            <span class="text-purple-800">
+              {milestones.find((m) => m.at > pct)?.skill ?? "Hit Zero! 🎉"}
+            </span>
+          </p>
+          <p class="mt-1 text-center text-xs text-slate-500">
+            🎀 Megaphone at the start, trophy at {money(goal)} — final art TBD
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <p class="mx-auto mt-12 max-w-2xl text-center text-sm text-slate-500">
+      Notes for the board: these are rough concepts to react to. We can adjust
+      colors, swap the milestone skills (and their order), animate the fill, and
+      wire the “raised” number to something editable. Tell me which direction you
+      like and I’ll polish it.
+    </p>
+  </section>
+</Layout>
