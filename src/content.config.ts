@@ -10,6 +10,10 @@ const events = defineCollection({
       when: z.string(),
       // ISO date used for sorting (most recent or upcoming first).
       sortDate: z.coerce.date(),
+      // Optional last day the event is relevant. /events hides an event once
+      // (endsOn ?? sortDate) is in the past — so single-day events auto-archive
+      // while multi-week ones (e.g. summer clinics) stay until they truly end.
+      endsOn: z.coerce.date().optional(),
       location: z.string().optional(),
       partner: z.string().optional(),
       paymentLink: z.string().url().optional(),

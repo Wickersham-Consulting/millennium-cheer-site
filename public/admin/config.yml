@@ -68,6 +68,16 @@ collections:
           hint: "Used to order events in the calendar. Use the first day for multi-day events.",
         }
       - {
+          label: "Ends on (optional)",
+          name: "endsOn",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          picker_utc: true,
+          required: false,
+          hint: "Last day this event is relevant. Leave blank for single-day events. Set it for multi-week ones (e.g. summer clinics) so they stay listed until they truly end — the Events page hides events after this date.",
+        }
+      - {
           label: "Location",
           name: "location",
           widget: "string",

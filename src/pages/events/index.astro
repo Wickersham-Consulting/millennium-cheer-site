@@ -6,11 +6,19 @@ import RichText from "../../components/RichText.astro";
 
 // /events only lists action items — things you can sign up for or pay
 // toward. The full schedule (practices, games, meetings, etc.) is on
-// /calendar.
+// /calendar. Past events auto-archive: an event drops off once its end date
+// (endsOn, or sortDate for single-day events) is before today (Arizona time).
+// This re-evaluates on every build, including the daily scheduled rebuild.
+const azToday = new Date(
+  new Intl.DateTimeFormat("en-CA", { timeZone: "America/Phoenix" }).format(new Date()),
+);
 const events = (
   await getCollection(
     "events",
-    ({ data }) => data.published && !!data.paymentLink,
+    ({ data }) =>
+      data.published &&
+      !!data.paymentLink &&
+      (data.endsOn ?? data.sortDate) >= azToday,
   )
 ).sort((a, b) => a.data.sortDate.getTime() - b.data.sortDate.getTime());
 ---
