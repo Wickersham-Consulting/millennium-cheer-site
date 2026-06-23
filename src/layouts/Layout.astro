@@ -6,11 +6,14 @@ import logoBadge from "../assets/logo-badge.png";
 interface Props {
   title?: string;
   description?: string;
+  // Set on draft/preview pages so search engines don't index them.
+  noindex?: boolean;
 }
 
 const {
   title = "Millennium Cheer Booster Club",
   description = "Supporting the Millennium Tigers cheerleaders through fundraising, sponsorship, and community.",
+  noindex = false,
 } = Astro.props;
 ---
 
@@ -24,6 +27,7 @@ const {
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
