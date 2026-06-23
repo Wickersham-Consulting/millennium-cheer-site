@@ -10,10 +10,9 @@ backend:
   name: github
   repo: Wickersham-Consulting/millennium-cheer-site
   branch: main
-  # OAuth relay (sveltia-cms-auth). Replace with the deployed worker's URL,
-  # e.g. https://millennium-cheer-auth.<subdomain>.workers.dev — its /callback
-  # must match the GitHub OAuth App's Authorization callback URL.
-  base_url: https://CHANGE-ME-oauth-relay.example.com
+  # OAuth relay (sveltia-cms-auth on Cloudflare Workers). Its /callback matches
+  # the GitHub OAuth App's Authorization callback URL.
+  base_url: https://sveltia-cms-auth.cwickersham.workers.dev
 
 # Lets `npx @sveltia/cms-server` (or Decap's proxy) run a local backend so we
 # can edit content during `npm run dev` without GitHub auth.
