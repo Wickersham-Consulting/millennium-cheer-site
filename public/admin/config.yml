@@ -279,3 +279,52 @@ collections:
         fields:
           - { label: "Label", name: "label", widget: "string" }
           - { label: "Link", name: "href", widget: "string" }
+
+  # ---------------------------------------------------------------------
+  # Sponsors — the "Thank You to Our Sponsors" wall on /sponsorship. Add a
+  # business name + logo (+ optional website). Public recognition only —
+  # never put dollar amounts, contacts, or family names here.
+  # ---------------------------------------------------------------------
+  - name: sponsors
+    label: Sponsors
+    label_singular: Sponsor
+    identifier_field: name
+    folder: src/content/sponsors
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    summary: "{{name}}"
+    sortable_fields: [order, name]
+    media_folder: "../../assets/sponsors"
+    public_folder: "../../assets/sponsors"
+    fields:
+      - { label: "Business name", name: "name", widget: "string" }
+      - {
+          label: "Logo",
+          name: "logo",
+          widget: "image",
+          required: false,
+          hint: "Transparent PNG or SVG looks best. Leave blank to show the name as text.",
+        }
+      - {
+          label: "Website",
+          name: "url",
+          widget: "string",
+          required: false,
+          hint: "Optional — links the logo to the sponsor's site.",
+        }
+      - {
+          label: "Sort order",
+          name: "order",
+          widget: "number",
+          default: 0,
+          value_type: "int",
+          hint: "Lower numbers show first.",
+        }
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }
