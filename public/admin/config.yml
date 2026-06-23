@@ -91,11 +91,32 @@ collections:
           hint: "e.g. 'Dauntless Athletics' for the tumbling clinics.",
         }
       - {
+          label: "Feature on the Events page",
+          name: "featured",
+          widget: "boolean",
+          default: false,
+          hint: "Tick to show this on /events (fundraisers + notable team events). Leave off for calendar-only schedule items.",
+        }
+      - {
           label: "Square payment link",
           name: "paymentLink",
           widget: "string",
           required: false,
-          hint: "Paste the URL from Square. Events with a payment link show up on the /events page; events without one are calendar-only.",
+          hint: "Paste the URL from Square. Shows a payment button on the Events page.",
+        }
+      - {
+          label: "Payment link coming soon (grey out button)",
+          name: "paymentPending",
+          widget: "boolean",
+          default: false,
+          hint: "Tick to show a greyed 'coming soon' button until the link is ready. Untick once you paste the link above.",
+        }
+      - {
+          label: "Button label",
+          name: "ctaLabel",
+          widget: "string",
+          required: false,
+          hint: "Text for the button, e.g. 'Buy Tickets' or 'Sign Up'. Defaults to 'Donate'.",
         }
       - {
           label: "Flyer image",

@@ -4,11 +4,11 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import RichText from "../../components/RichText.astro";
 
-// /events only lists action items — things you can sign up for or pay
-// toward. The full schedule (practices, games, meetings, etc.) is on
-// /calendar. Past events auto-archive: an event drops off once its end date
-// (endsOn, or sortDate for single-day events) is before today (Arizona time).
-// This re-evaluates on every build, including the daily scheduled rebuild.
+// /events features curated fundraisers and notable team happenings (flagged
+// `featured`). The full schedule (practices, games, meetings) is on /calendar.
+// Past events auto-archive: an event drops off once its end date (endsOn, or
+// sortDate for single-day events) is before today (Arizona time). This
+// re-evaluates on every build, including the daily scheduled rebuild.
 const azToday = new Date(
   new Intl.DateTimeFormat("en-CA", { timeZone: "America/Phoenix" }).format(new Date()),
 );
@@ -17,7 +17,7 @@ const events = (
     "events",
     ({ data }) =>
       data.published &&
-      !!data.paymentLink &&
+      data.featured &&
       (data.endsOn ?? data.sortDate) >= azToday,
   )
 ).sort((a, b) => a.data.sortDate.getTime() - b.data.sortDate.getTime());
@@ -77,7 +77,7 @@ const events = (
                   class="mt-4 max-w-sm rounded-md border border-slate-200"
                 />
               )}
-              {event.data.paymentLink && (
+              {event.data.paymentLink && !event.data.paymentPending && (
                 <div class="mt-4">
                   <a
                     href={event.data.paymentLink}
@@ -85,8 +85,19 @@ const events = (
                     rel="noopener"
                     class="inline-flex items-center rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
                   >
-                    Donate
+                    {event.data.ctaLabel ?? "Donate"}
                   </a>
+                </div>
+              )}
+              {event.data.paymentPending && (
+                <div class="mt-4">
+                  <span
+                    class="inline-flex cursor-not-allowed items-center rounded-md bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-400 ring-1 ring-inset ring-slate-200"
+                    aria-disabled="true"
+                    title="Coming soon"
+                  >
+                    {event.data.ctaLabel ?? "Sign-up"} — coming soon
+                  </span>
                 </div>
               )}
             </article>

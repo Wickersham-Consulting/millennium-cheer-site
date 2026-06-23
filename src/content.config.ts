@@ -16,7 +16,15 @@ const events = defineCollection({
       endsOn: z.coerce.date().optional(),
       location: z.string().optional(),
       partner: z.string().optional(),
+      // Show this event on the /events page (fundraisers + notable team
+      // happenings). Without it, an event is calendar-only.
+      featured: z.boolean().default(false),
       paymentLink: z.string().url().optional(),
+      // True when a payment/ticket link is expected but not ready — renders a
+      // greyed "coming soon" button. Flip to false once paymentLink is set.
+      paymentPending: z.boolean().default(false),
+      // Button text for the call-to-action (e.g. "Buy Tickets", "Sign Up").
+      ctaLabel: z.string().optional(),
       flyer: image().optional(),
       summary: z.string(),
       published: z.boolean().default(true),
