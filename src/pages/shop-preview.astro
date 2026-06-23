@@ -1,0 +1,124 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+
+import mhsCheer from "../assets/shop-preview/mhs-cheer.png";
+import mTigersCheer from "../assets/shop-preview/m-tigers-cheer.png";
+import tigersCheerMom from "../assets/shop-preview/tigers-cheer-mom.png";
+import tigersCheerTank from "../assets/shop-preview/tigers-cheer-tank.png";
+import tigersCheerScript from "../assets/shop-preview/tigers-cheer-script-purple.png";
+import tigersCheerDad from "../assets/shop-preview/tigers-cheer-dad.png";
+import millenniumCheerMom from "../assets/shop-preview/millennium-cheer-mom.png";
+import tigersCheerPurple from "../assets/shop-preview/tigers-cheer-purple.png";
+
+// MOCKUP DATA — pricing from the 2023 offering. The booster club is a
+// "brochure": the vendor handles checkout + fulfillment; we earn $5 per order.
+const TEE = "$22 · S–XL  |  $26 · 2XL–4XL";
+const TANK = "$25 · S–XL  |  $28 · 2XL–4XL";
+
+const products = [
+  { name: "MHS Cheer", type: "Gildan 64000 Tee", price: TEE, img: mhsCheer },
+  { name: "M Tigers Cheer", type: "Gildan 64000 Tee", price: TEE, img: mTigersCheer },
+  { name: "Tigers Cheer Mom", type: "Gildan 64000 Tee", price: TEE, img: tigersCheerMom },
+  { name: "Tigers Cheer Tank", type: "Moisture-Wicking Tank", price: TANK, img: tigersCheerTank },
+  { name: "Tigers Cheer (Script)", type: "Gildan 64000 Tee", price: TEE, img: tigersCheerScript },
+  { name: "Tigers Cheer Dad", type: "Gildan 64000 Tee", price: TEE, img: tigersCheerDad },
+  { name: "Millennium Cheer Mom", type: "Gildan 64000 Tee", price: TEE, img: millenniumCheerMom },
+  { name: "Tigers Cheer (Purple)", type: "Gildan 64000 Tee", price: TEE, img: tigersCheerPurple },
+];
+---
+
+<Layout title="Spirit Wear & Instagram — Preview">
+  <section class="border-b border-amber-200 bg-amber-50">
+    <div class="mx-auto max-w-6xl px-6 py-4 text-sm text-amber-800">
+      ⚠️ <strong>Internal mockup — not linked publicly and not final.</strong> Two
+      concepts to react to: a Spirit Wear shop and a live Instagram feed.
+    </div>
+  </section>
+
+  <!-- ===================== SPIRIT WEAR SHOP ===================== -->
+  <section class="border-b border-slate-100 bg-purple-950 text-white">
+    <div class="mx-auto max-w-6xl px-6 py-14">
+      <p class="text-sm font-semibold uppercase tracking-wider text-purple-300">
+        Tigers Spirit Wear
+      </p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Shop &amp; Support</h1>
+      <p class="mt-4 max-w-2xl text-purple-100">
+        Rep the Tigers! Our spirit-wear partner handles ordering, printing, and
+        shipping — and <strong>$5 from every order comes back to the team</strong>
+        (custom orders too). Browse below and order straight from our vendor.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+      {products.map((p) => (
+        <article class="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white">
+          <div class="flex aspect-square items-center justify-center bg-slate-50 p-2">
+            <Image src={p.img} alt={p.name} widths={[300, 600]} sizes="(min-width:1024px) 25vw, 50vw" class="h-full w-full object-contain" />
+          </div>
+          <div class="flex flex-1 flex-col p-4">
+            <h3 class="font-semibold text-slate-900">{p.name}</h3>
+            <p class="text-xs text-slate-500">{p.type}</p>
+            <p class="mt-2 text-sm font-medium text-purple-800">{p.price}</p>
+            <a
+              href="#"
+              class="mt-4 inline-flex items-center justify-center rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
+            >
+              Order from our vendor →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-8 rounded-lg border border-purple-200 bg-purple-50 p-5 text-sm text-slate-700">
+      <p>
+        <strong>How it works:</strong> "Order" buttons would link out to our
+        spirit-wear partner's store (or a custom order form). They collect
+        payment and ship directly to buyers — the booster club never touches
+        inventory or fulfillment, and earns $5 per order. Sizes, colors, and
+        designs shown are from our 2023 lineup as a sample.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== INSTAGRAM FEED STUB ===================== -->
+  <section class="border-t border-slate-100 bg-white">
+    <div class="mx-auto max-w-6xl px-6 py-14">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight">From our Instagram</h2>
+          <p class="mt-2 max-w-xl text-slate-600">
+            Mockup of the live feed — the most recent posts from
+            <strong>@millennium_cheer</strong> would appear here automatically.
+          </p>
+        </div>
+        <a
+          href="https://www.instagram.com/millennium_cheer/"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
+        >
+          Follow @millennium_cheer →
+        </a>
+      </div>
+
+      <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div class="relative flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-200 to-purple-400">
+            <svg class="h-8 w-8 text-white/80" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.37.06 2.63.34 3.61 1.31.97.98 1.25 2.24 1.31 3.61.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.06 1.37-.34 2.63-1.31 3.61-.98.97-2.24 1.25-3.61 1.31-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.37-.06-2.63-.34-3.61-1.31-.97-.98-1.25-2.24-1.31-3.61C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85C2.33 5.78 2.61 4.52 3.58 3.54 4.56 2.57 5.82 2.29 7.19 2.23 8.44 2.2 8.8 2.2 12 2.2zm0 3.05A6.75 6.75 0 1 0 18.75 12 6.75 6.75 0 0 0 12 5.25zm0 11.13A4.38 4.38 0 1 1 16.38 12 4.38 4.38 0 0 1 12 16.38zm6.99-11.4a1.58 1.58 0 1 1-1.58-1.57 1.58 1.58 0 0 1 1.58 1.57z" />
+            </svg>
+            <span class="absolute bottom-1.5 left-2 text-[10px] font-medium text-white/90">recent post</span>
+          </div>
+        ))}
+      </div>
+      <p class="mt-4 text-xs text-slate-400">
+        Stub only. Goes live once @millennium_cheer is switched to a professional
+        (Business/Creator) account and connected to the feed widget.
+      </p>
+    </div>
+  </section>
+</Layout>
