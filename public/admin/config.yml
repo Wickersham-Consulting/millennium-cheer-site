@@ -385,3 +385,54 @@ collections:
           widget: "boolean",
           default: true,
         }
+
+  # ---------------------------------------------------------------------
+  # Competitions — the season schedule highlighted on the homepage.
+  # ---------------------------------------------------------------------
+  - name: competitions
+    label: Competitions
+    label_singular: Competition
+    folder: src/content/competitions
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{dateLabel}} — {{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: "Name", name: "title", widget: "string" }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          picker_utc: true,
+          hint: "Used to order the schedule. Use the first day for multi-day comps.",
+        }
+      - {
+          label: "Date label",
+          name: "dateLabel",
+          widget: "string",
+          hint: "How the date shows, e.g. 'Nov 7' or 'Jan 14–16'.",
+        }
+      - {
+          label: "Teams",
+          name: "teams",
+          widget: "string",
+          required: false,
+          hint: "e.g. 'JV & Varsity' or 'All Girl Stunt'.",
+        }
+      - {
+          label: "Location",
+          name: "location",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }

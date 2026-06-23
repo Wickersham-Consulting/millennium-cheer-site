@@ -112,6 +112,22 @@ const sponsors = defineCollection({
     }),
 });
 
+// Season competition schedule — highlighted on the homepage. Sorted by date.
+const competitions = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/competitions" }),
+  schema: z.object({
+    title: z.string(),
+    // ISO date for sorting.
+    date: z.coerce.date(),
+    // Human display of the date, e.g. "Nov 7" or "Jan 14–16".
+    dateLabel: z.string(),
+    // Which squads compete, e.g. "JV & Varsity" or "All Girl Stunt".
+    teams: z.string().optional(),
+    location: z.string().optional(),
+    published: z.boolean().default(true),
+  }),
+});
+
 // Booster meeting minutes. The PDF lives in public/downloads/minutes/ and
 // is referenced by `pdf` (path relative to /). One markdown entry per
 // meeting; the filename slug is unused — entries are sorted by `date`.
@@ -126,4 +142,4 @@ const minutes = defineCollection({
   }),
 });
 
-export const collections = { events, announcements, achievements, thanks, minutes, gallery, sponsors };
+export const collections = { events, announcements, achievements, thanks, minutes, gallery, sponsors, competitions };

@@ -10,5 +10,5 @@ summary: |
   inbox by May 5 to be added to the ballot. The vote takes place at our
   next booster meeting on Monday, May 19, 2026 — join via the Zoom link
   below.
-published: true
+published: false
 ---
