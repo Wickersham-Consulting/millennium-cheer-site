@@ -1,0 +1,151 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// 2026–27 full-season donation schedule (JV/Varsity, summer start).
+// Source of truth is the PDF in public/downloads/; this table mirrors it for
+// at-a-glance viewing. Update both when the schedule changes each season.
+const asOf = "May 20, 2026";
+const pdfHref = "/downloads/donation-schedule-2026-27.pdf";
+
+const schedule: { item: string; accounting: string; amount: string; fundraising?: boolean }[] = [
+  { item: "Shoes: Game Day", accounting: "Due 5/22 · link from Rebel", amount: "$105" },
+  { item: "Season Apparel: Amazon", accounting: "Due 5/22 · link from Amazon", amount: "$100" },
+  { item: "Season Apparel: AZ Embroidery & Printing Lab", accounting: "Due 5/22 · paid through booster club", amount: "$57" },
+  { item: "New Backpack — all athletes", accounting: "Due 5/22 · link from Rebel", amount: "$105" },
+  { item: "Camp: TSC", accounting: "Due 5/29 · paid through booster club", amount: "$651" },
+  { item: "Shoes: School and Event", accounting: "Due 6/30 · link from Zappos", amount: "$75" },
+  { item: "Tumbling (paid to Dauntless)", accounting: "$0 registration / $88.27 monthly (incl. fees) by the 15th, through booster club — 9 months (Spring athletes) or 7 months (Fall athletes)", amount: "$795" },
+  { item: "Camp: UCA", accounting: "TBD · link from USA/Varsity", amount: "$217" },
+  { item: "Nike or Rebel Jacket (TBD)", accounting: "Due 9/15 · link from BSN or Rebel (TBD)", amount: "$110" },
+  { item: "Poms and pom tags", accounting: "Fundraising goal", amount: "$40", fundraising: true },
+  { item: "Game Day bow", accounting: "Fundraising goal", amount: "$20", fundraising: true },
+  { item: "Breast Cancer / October game apparel: bow, shirt, socks", accounting: "Fundraising goal", amount: "$30", fundraising: true },
+  { item: "Christmas party meal / dinner", accounting: "Fundraising goal", amount: "$20", fundraising: true },
+  { item: "Gifts / accessories (season socks, Hoco gifts, all-team gifts)", accounting: "Fundraising goal", amount: "$100", fundraising: true },
+  { item: "Game Day snacks", accounting: "Fundraising goal", amount: "$10", fundraising: true },
+  { item: "Candy: parades / trunk-or-treat / tailgating / gifts / parties", accounting: "Fundraising goal", amount: "$50", fundraising: true },
+  { item: "Concession donations — TSC", accounting: "Fundraising goal", amount: "$50", fundraising: true },
+  { item: "Coaches gifts — banquet", accounting: "Fundraising goal", amount: "$25", fundraising: true },
+  { item: "Banquet (family of 4)", accounting: "Fundraising goal", amount: "$75", fundraising: true },
+];
+
+const otherFees: { item: string; detail: string }[] = [
+  { item: "Athletic Fee", detail: "$100.00 — due to the school office prior to the first game" },
+  { item: "Homecoming Parade costume", detail: "Average $20–$30 per costume" },
+  { item: "Christmas party", detail: "$20.00 gift" },
+  { item: "Christmas coaches gifts", detail: "Donated items for gift baskets" },
+  { item: "Spirit Week clothing", detail: "Dependent on the individual athlete" },
+];
+---
+
+<Layout
+  title="Parent Info — Millennium Cheer Booster Club"
+  description="Season donation schedule, fees, and payment information for Millennium Cheer families."
+>
+  <section class="border-b border-slate-100 bg-purple-50">
+    <div class="mx-auto max-w-5xl px-6 py-16">
+      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Parent Info</h1>
+      <p class="mt-4 max-w-2xl text-slate-600">
+        Everything families need for the 2026–27 season — the full donation
+        schedule, other expected fees, and how to make payments. Questions?
+        Email
+        <a
+          href="mailto:MHSSpiritlinebc@gmail.com"
+          class="font-medium text-purple-800 hover:text-purple-900"
+        >MHSSpiritlinebc@gmail.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-12">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <h2 class="text-2xl font-bold tracking-tight">Donation Schedule</h2>
+        <p class="mt-1 text-sm text-slate-500">
+          2026–27 full season (JV / Varsity, summer start) · as of {asOf}
+        </p>
+      </div>
+      <a
+        href={pdfHref}
+        class="inline-flex items-center gap-2 rounded-md border border-purple-200 bg-white px-4 py-2 text-sm font-semibold text-purple-800 transition hover:bg-purple-50"
+      >
+        ⬇ Download PDF
+      </a>
+    </div>
+
+    <div class="mt-6 overflow-x-auto rounded-lg border border-slate-200">
+      <table class="w-full border-collapse text-sm">
+        <thead>
+          <tr class="bg-slate-50 text-left text-xs uppercase tracking-wider text-slate-600">
+            <th class="px-4 py-3 font-semibold">Item / Event</th>
+            <th class="px-4 py-3 font-semibold">Due date &amp; accounting</th>
+            <th class="px-4 py-3 text-right font-semibold">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {schedule.map((row) => (
+            <tr class="border-t border-slate-100 align-top">
+              <td class="px-4 py-3 font-medium text-slate-800">{row.item}</td>
+              <td class="px-4 py-3 text-slate-600">
+                {row.fundraising ? (
+                  <span class="inline-flex items-center rounded bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800">
+                    Fundraising goal
+                  </span>
+                ) : (
+                  row.accounting
+                )}
+              </td>
+              <td class="px-4 py-3 text-right tabular-nums text-slate-800">{row.amount}</td>
+            </tr>
+          ))}
+          <tr class="border-t-2 border-purple-200 bg-purple-50">
+            <td class="px-4 py-3 font-bold text-slate-900" colspan="2">Individual Total</td>
+            <td class="px-4 py-3 text-right font-bold tabular-nums text-slate-900">$2,635</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 max-w-3xl text-sm text-slate-500">
+      Lines marked <span class="font-medium text-purple-800">Fundraising goal</span>
+      are targets the booster club works to cover through team fundraising (our
+      season team goal is <strong>$18,900</strong>) — so the more we fundraise
+      together, the less comes out of pocket. All prices and vendors are subject
+      to change.
+    </p>
+  </section>
+
+  <section class="border-t border-slate-100 bg-white">
+    <div class="mx-auto max-w-5xl px-6 py-12">
+      <h2 class="text-2xl font-bold tracking-tight">Other Expected Fees</h2>
+      <dl class="mt-6 divide-y divide-slate-100 rounded-lg border border-slate-200">
+        {otherFees.map((fee) => (
+          <div class="flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-baseline sm:justify-between">
+            <dt class="font-medium text-slate-800">{fee.item}</dt>
+            <dd class="text-sm text-slate-600 sm:text-right">{fee.detail}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section id="payments" class="mx-auto max-w-5xl px-6 py-12">
+    <h2 class="text-2xl font-bold tracking-tight">Make a Payment</h2>
+    <p class="mt-4 max-w-3xl text-slate-600">
+      Many items are paid directly through vendor links (see the schedule
+      above). For amounts collected by the booster club, use our secure Square
+      checkout. Item-specific payment links and QR codes will be posted here as
+      they open for the season.
+    </p>
+    <div class="mt-6">
+      <a
+        href="https://square.link/u/ZHknpVj3"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center rounded-md bg-purple-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-purple-800"
+      >
+        Pay / Donate with Square →
+      </a>
+    </div>
+  </section>
+</Layout>
