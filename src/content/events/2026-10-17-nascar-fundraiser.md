@@ -2,6 +2,7 @@
 title: NASCAR Race Fundraiser
 when: Saturday, October 17, 2026
 sortDate: 2026-10-17
+location: Phoenix Raceway, Avondale
 featured: true
 paymentPending: true
 ctaLabel: Buy Tickets

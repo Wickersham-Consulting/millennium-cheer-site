@@ -5,6 +5,6 @@ sortDate: 2026-09-11
 location: Millennium High School — home football game
 featured: true
 summary: |
-  Our annual Jr. Tigers night, where young cheerleaders join the team for a game-day experience. We'll have spirit items for sale — t-shirts, pom-poms, and bows. Sign-up details and flyers to come.
+  Our annual Jr. Tigers night! Young cheerleaders join the team and perform at halftime during a home football game. We'll have spirit items for sale — t-shirts, pom-poms, and bows. Sign-up details and flyers to come.
 published: true
 ---
