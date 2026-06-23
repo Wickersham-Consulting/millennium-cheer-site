@@ -7,54 +7,15 @@
     <title>Content Manager — Millennium Cheer</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <!--
-      Tell Decap exactly where to load its config from. Without this, Decap
-      derives the path from the current document URL — which is wrong on the
-      Netlify deploy because we rewrite root '/' to '/admin/index.html' (so
-      invite-token links work at the Netlify domain root) without changing
-      the URL bar. With this tag, the path is unambiguous and the same on
-      both AWS and Netlify.
-    -->
-    <link rel="cms-config-url" type="text/yaml" href="/admin/config.yml" />
-    <style>
-      body {
-        font:
-          14px/1.5 -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          system-ui,
-          sans-serif;
-        margin: 0;
-      }
-    </style>
   </head>
   <body>
     <!--
-      Netlify Identity widget — handles login (Google + magic link), signup,
-      and processing invite tokens from Netlify-sent invite emails. Decap CMS
-      itself looks for the widget on the global object and uses it for auth
-      when the backend is `git-gateway`.
+      Sveltia CMS — an actively-maintained, drop-in replacement for Decap CMS.
+      It reads the same /admin/config.yml and renders the same collections.
+      Auth is GitHub OAuth via the relay configured as `backend.base_url` in
+      config.yml (no Netlify Identity / Git Gateway, which Netlify has retired).
+      Editors log in with a GitHub account that has write access to the repo.
     -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <!--
-      Decap CMS — runs entirely in the browser. Reads /admin/config.yml,
-      uses Netlify Identity for login, then commits to GitHub via the Git
-      Gateway proxy that Netlify operates.
-    -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-    <script>
-      // After signup, kick the user back to /admin so the editor loads.
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function (user) {
-          if (!user) {
-            window.netlifyIdentity.on("login", function () {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
   </body>
 </html>

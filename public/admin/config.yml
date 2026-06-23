@@ -1,22 +1,22 @@
-# Decap CMS configuration. Editors hit /admin in a browser; this file
-# tells Decap how to talk to GitHub (via Netlify's Git Gateway), where
-# content lives in the repo, and how to render the editor for each
-# content type.
+# Sveltia CMS configuration (Decap-compatible). Editors hit /admin in a
+# browser; this file tells the CMS how to talk to GitHub, where content lives
+# in the repo, and how to render the editor for each content type.
 #
-# Editor login flow: Netlify Identity (Google or magic link) → Git Gateway
-# → GitHub commits on a feature branch → editor publishes → merges to main
-# → deploy workflow ships the site.
+# Editor login flow: GitHub OAuth via the relay at backend.base_url →
+# the CMS commits to GitHub as the signed-in user → push triggers the deploy
+# workflow → the site ships. Editors must be repo collaborators with write.
 
 backend:
-  name: git-gateway
+  name: github
+  repo: Wickersham-Consulting/millennium-cheer-site
   branch: main
-  # Use "Editorial Workflow" so changes go through a draft → ready → published
-  # state rather than committing directly to main. Each draft becomes a PR
-  # under the hood; publishing merges it.
-  open_authoring: false
+  # OAuth relay (sveltia-cms-auth). Replace with the deployed worker's URL,
+  # e.g. https://millennium-cheer-auth.<subdomain>.workers.dev — its /callback
+  # must match the GitHub OAuth App's Authorization callback URL.
+  base_url: https://CHANGE-ME-oauth-relay.example.com
 
-# Allow `npm run dev` to run a local proxy if we ever want to author content
-# without going through Netlify (rare; useful for testing schema changes).
+# Lets `npx @sveltia/cms-server` (or Decap's proxy) run a local backend so we
+# can edit content during `npm run dev` without GitHub auth.
 local_backend: true
 
 # Default media folder. Per-collection overrides (below) put images into
