@@ -1,9 +1,15 @@
 ---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 
 const pdfPath = "/downloads/millennium-cheer-sponsorship-packet.pdf";
 const sponsorshipEmail = "sponsorship@millenniumcheer.com";
 const squarePaymentLink = "https://square.link/u/r1lTcucy?src=webqr";
+
+const sponsors = (await getCollection("sponsors", ({ data }) => data.published)).sort(
+  (a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name),
+);
 
 const tiers = [
   {
@@ -200,6 +206,53 @@ const tiers = [
       </article>
     </div>
   </section>
+
+  {
+    sponsors.length > 0 && (
+      <section class="bg-white">
+        <div class="mx-auto max-w-5xl px-6 py-16">
+          <h2 class="text-2xl font-bold tracking-tight">Thank You to Our Sponsors</h2>
+          <p class="mt-3 max-w-2xl text-slate-600">
+            Our 2026–27 season is powered by these community partners. Please
+            support the businesses that support our Tigers!
+          </p>
+          <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
+            {sponsors.map((sponsor) => {
+              const card = (
+                <div class="flex h-32 w-full items-center justify-center rounded-lg border border-slate-200 bg-white p-6 transition hover:border-purple-300 hover:shadow-sm">
+                  {sponsor.data.logo ? (
+                    <Image
+                      src={sponsor.data.logo}
+                      alt={sponsor.data.name}
+                      widths={[200, 400]}
+                      sizes="(min-width: 640px) 30vw, 45vw"
+                      class="max-h-20 w-auto object-contain"
+                    />
+                  ) : (
+                    <span class="text-center text-sm font-semibold text-slate-700">
+                      {sponsor.data.name}
+                    </span>
+                  )}
+                </div>
+              );
+              return sponsor.data.url ? (
+                <a
+                  href={sponsor.data.url}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={sponsor.data.name}
+                >
+                  {card}
+                </a>
+              ) : (
+                card
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <section class="border-y border-slate-100 bg-white">
     <div class="mx-auto max-w-5xl px-6 py-16">

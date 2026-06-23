@@ -91,6 +91,23 @@ const thanks = defineCollection({
   }),
 });
 
+// Current sponsors shown on the /sponsorship "Thank You to Our Sponsors" wall.
+// Public-safe fields only — business name, logo, optional website. No amounts,
+// contacts, or referring-family info ever live here. CMS-editable so sponsors
+// can be added each season.
+const sponsors = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/sponsors" }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      logo: image().optional(),
+      url: z.string().url().optional(),
+      // Lower number sorts first; ties fall back to name.
+      order: z.number().default(0),
+      published: z.boolean().default(true),
+    }),
+});
+
 // Booster meeting minutes. The PDF lives in public/downloads/minutes/ and
 // is referenced by `pdf` (path relative to /). One markdown entry per
 // meeting; the filename slug is unused — entries are sorted by `date`.
@@ -105,4 +122,4 @@ const minutes = defineCollection({
   }),
 });
 
-export const collections = { events, announcements, achievements, thanks, minutes, gallery };
+export const collections = { events, announcements, achievements, thanks, minutes, gallery, sponsors };
