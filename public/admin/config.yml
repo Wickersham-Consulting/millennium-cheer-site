@@ -221,6 +221,27 @@ collections:
           hint: "Standing booster meeting Zoom URL. Renders as a 'Join via Zoom →' button.",
         }
       - {
+          label: "Call-to-action link",
+          name: "link",
+          widget: "string",
+          required: false,
+          hint: "Optional URL (e.g. a Google Form or Square payment link). Renders as a button.",
+        }
+      - {
+          label: "Button label",
+          name: "linkLabel",
+          widget: "string",
+          required: false,
+          hint: "Text for the call-to-action button, e.g. 'Fill out the form →'.",
+        }
+      - {
+          label: "Link coming soon (grey out button)",
+          name: "linkPending",
+          widget: "boolean",
+          default: false,
+          hint: "Tick to show the button greyed-out and non-clickable until the link is ready. Untick once you paste the real link above.",
+        }
+      - {
           label: "Published",
           name: "published",
           widget: "boolean",

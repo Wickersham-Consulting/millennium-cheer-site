@@ -39,6 +39,10 @@ const announcements = defineCollection({
     // a primary button on the announcement card; linkLabel sets the button text.
     link: z.string().url().optional(),
     linkLabel: z.string().optional(),
+    // When true, the CTA renders greyed-out and non-clickable ("— coming soon")
+    // — for a link that isn't ready yet (e.g. a Square payment link still TBD).
+    // Set the real link and flip this to false to make it live.
+    linkPending: z.boolean().default(false),
     published: z.boolean().default(true),
   }),
 });
