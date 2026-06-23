@@ -55,6 +55,22 @@ const achievements = defineCollection({
     }),
 });
 
+// Photo gallery shown on the homepage ("On the Sidelines"). Images are
+// uploaded via the CMS into src/assets/gallery and ordered newest-first by
+// date. This is the swappable photo surface for the yearly site refresh.
+const gallery = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/gallery" }),
+  schema: ({ image }) =>
+    z.object({
+      image: image(),
+      alt: z.string(),
+      caption: z.string().optional(),
+      // ISO date used to order photos (newest first).
+      date: z.coerce.date(),
+      published: z.boolean().default(true),
+    }),
+});
+
 // Post-payment "thank you" pages used as Square Payment Link redirect
 // targets. Each entry corresponds to a /thanks/<slug> route. The slug is
 // the markdown filename, e.g. donate.md -> /thanks/donate.
@@ -89,4 +105,4 @@ const minutes = defineCollection({
   }),
 });
 
-export const collections = { events, announcements, achievements, thanks, minutes };
+export const collections = { events, announcements, achievements, thanks, minutes, gallery };

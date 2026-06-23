@@ -10,6 +10,9 @@ const achievements = (await getCollection("achievements", ({ data }) => data.pub
 
 const announcements = (await getCollection("announcements", ({ data }) => data.published))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const gallery = (await getCollection("gallery", ({ data }) => data.published))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <Layout>
@@ -168,6 +171,49 @@ const announcements = (await getCollection("announcements", ({ data }) => data.p
                   )}
                 </div>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    gallery.length > 0 && (
+      <section class="border-y border-slate-100 bg-white">
+        <div class="mx-auto max-w-5xl px-6 py-16">
+          <div class="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 class="text-2xl font-bold tracking-tight">On the Sidelines</h2>
+              <p class="mt-2 text-slate-600">
+                Moments from competitions, games, and team events.
+              </p>
+            </div>
+            <a
+              href="https://www.instagram.com/millennium_cheer/"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-2 rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
+            >
+              Follow @millennium_cheer →
+            </a>
+          </div>
+          <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {gallery.map((item) => (
+              <figure class="overflow-hidden rounded-lg border border-slate-200 bg-white">
+                <Image
+                  src={item.data.image}
+                  alt={item.data.alt}
+                  widths={[300, 600]}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                  class="aspect-square w-full object-cover"
+                />
+                {item.data.caption && (
+                  <figcaption class="px-3 py-2 text-xs text-slate-600">
+                    {item.data.caption}
+                  </figcaption>
+                )}
+              </figure>
             ))}
           </div>
         </div>

@@ -110,6 +110,54 @@ collections:
         }
 
   # ---------------------------------------------------------------------
+  # Photo gallery — the "On the Sidelines" grid on the homepage. Upload a
+  # photo, give it alt text + an optional caption. Newest photos show first.
+  # This is the surface to refresh each year with new team/coach photos.
+  - name: gallery
+    label: Photo Gallery
+    label_singular: Photo
+    folder: src/content/gallery
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{caption}}"
+    sortable_fields: [date]
+    media_folder: "../../assets/gallery"
+    public_folder: "../../assets/gallery"
+    fields:
+      - { label: "Photo", name: "image", widget: "image" }
+      - {
+          label: "Alt text (describe the photo for screen readers)",
+          name: "alt",
+          widget: "string",
+        }
+      - {
+          label: "Caption",
+          name: "caption",
+          widget: "string",
+          required: false,
+          hint: "Optional text shown under the photo.",
+        }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          picker_utc: true,
+          hint: "Photos are shown newest first.",
+        }
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: true,
+          hint: "Untick to hide without deleting.",
+        }
+
+  # ---------------------------------------------------------------------
   # Announcements — board elections, meetings, important parent notices.
   # Renders on the homepage in the Announcements section.
   # ---------------------------------------------------------------------
