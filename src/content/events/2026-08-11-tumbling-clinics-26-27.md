@@ -4,7 +4,7 @@ when: Tuesdays, 4:30–6:30 PM · 26/27 full season (days/times subject to chang
 sortDate: 2026-08-11
 location: Millennium High School
 partner: Dauntless Athletics
-featured: true
+featured: false
 ctaLabel: Sign Up & Pay
 paymentLink: https://square.link/u/udRKTUvR
 flyer: ../../assets/flyers/tumbling-clinics-2026-27.jpg
