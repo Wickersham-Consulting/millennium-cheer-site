@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 // choose from. Not linked in the site nav. The "raised" amount is a
 // placeholder so the concepts show partially filled; the real version would
 // read a goal + raised number you can edit in the CMS.
-const goal = 18900;
+const goal = 18450;
 const raised = 7560; // <-- placeholder; ~40%
 const pct = Math.min(100, Math.round((raised / goal) * 100));
 const money = (n: number) => "$" + Math.round(n).toLocaleString("en-US");

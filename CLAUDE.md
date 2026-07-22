@@ -40,7 +40,7 @@ GitHub Actions (`.github/workflows/deploy.yml`) builds and syncs `dist/` to S3 +
 
 ## Unlinked preview pages (not in nav, `noindex`)
 
-- `/fundraising-poc` — 3 fundraising-thermometer concepts for the board to pick from (goal **$18,900**).
+- `/fundraising-poc` — 3 fundraising-thermometer concepts for the board to pick from (goal **$18,450**).
 - `/shop-preview` — Spirit Wear shop mockup (vendor brochure) + Instagram feed stub.
 
 ## Roadmap / open items
