@@ -1,0 +1,94 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+
+import tigersCheerWhite from "../assets/shop/tigers-cheer-white-womens-fan-favorite.jpg";
+import tigersCheerSoftstyle from "../assets/shop/tigers-cheer-softstyle.jpg";
+import millenniumLongSleeve from "../assets/shop/millennium-cheer-long-sleeve.jpg";
+import millenniumSoftstyleWomens from "../assets/shop/millennium-cheer-softstyle-womens.jpg";
+import millenniumSoftstyle from "../assets/shop/millennium-cheer-softstyle.jpg";
+import millenniumFleece from "../assets/shop/millennium-cheer-fleece-crewneck.jpg";
+import mTigersMegaphone from "../assets/shop/m-tigers-megaphone-fan-favorite.jpg";
+import cheerMomFanFavorite from "../assets/shop/cheer-mom-womens-fan-favorite.jpg";
+import cheerCheerCheerMom from "../assets/shop/cheer-cheer-cheer-mom.jpg";
+import mCheerMomUnisex from "../assets/shop/m-cheer-mom-unisex-softstyle.jpg";
+import cheerDadSoftstyle from "../assets/shop/cheer-dad-softstyle.jpg";
+import mCheerDadSoftstyle from "../assets/shop/m-cheer-dad-softstyle.jpg";
+
+// Spirit Wear shop, hosted and fulfilled entirely by our partner (Deco
+// Apparel / DecoNetwork). We just link out to each product — they handle
+// sizing, payment, printing, and shipping. Prices aren't shown here since
+// they vary by size/color and the vendor's page is the source of truth.
+const STORE_BASE = "https://millenniumcheer.deco-apparel.com";
+
+const products = [
+  { name: "Tigers Cheer — White Font (Women's)", img: tigersCheerWhite, path: "/shop/view_product/25564731/Tigers-Cheer-White-font-Women-s-Fan-Favorite-Tee" },
+  { name: "Tigers Cheer", img: tigersCheerSoftstyle, path: "/shop/view_product/25564726/Tigers-Cheer-Softstyle-T-Shirt" },
+  { name: "Millennium Cheer (Long Sleeve)", img: millenniumLongSleeve, path: "/shop/view_product/25564621/Millennium-Cheer-Long-Sleeve-Fan-Favorite-Tee" },
+  { name: "Millennium Cheer (Women's)", img: millenniumSoftstyleWomens, path: "/shop/view_product/25564611/Millennium-Cheer-Softstyle-Women-s-T-Shirt" },
+  { name: "Millennium Cheer", img: millenniumSoftstyle, path: "/shop/view_product/25564601/Millennium-Cheer-Softstyle-T-Shirt" },
+  { name: "Millennium Cheer (Fleece Crewneck)", img: millenniumFleece, path: "/shop/view_product/25554246/Millennium-Cheer-Essential-Fleece-Crewneck-Sweatshirt" },
+  { name: "M Tigers Megaphone", img: mTigersMegaphone, path: "/shop/view_product/25564716/M-Tigers-Megaphone-Fan-Favorite-Tee" },
+  { name: "Cheer Mom (Women's)", img: cheerMomFanFavorite, path: "/shop/view_product/25564691/Cheer-Mom-Women-s-Fan-Favorite-Tee" },
+  { name: "Cheer Cheer Cheer Mom", img: cheerCheerCheerMom, path: "/shop/view_product/25539401/Cheer-Cheer-Cheer-Mom" },
+  { name: "M Cheer Mom (Unisex)", img: mCheerMomUnisex, path: "/shop/view_product/25564701/M-Cheer-Mom-Unisex-Softstyle-T-Shirt" },
+  { name: "Cheer Dad", img: cheerDadSoftstyle, path: "/shop/view_product/25564686/Cheer-Dad-Softstyle-T-Shirt" },
+  { name: "M Cheer Dad", img: mCheerDadSoftstyle, path: "/shop/view_product/25539411/M-Cheer-Dad-Softstyle-T-Shirt" },
+];
+---
+
+<Layout
+  title="Spirit Wear Shop — Millennium Cheer Booster Club"
+  description="Shop Millennium Tigers Cheer spirit wear — tees, sweatshirts, and more, printed and shipped directly by our store partner."
+>
+  <section class="border-b border-slate-100 bg-purple-950 text-white">
+    <div class="mx-auto max-w-6xl px-6 py-14">
+      <p class="text-sm font-semibold uppercase tracking-wider text-purple-300">
+        Tigers Spirit Wear
+      </p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Shop &amp; Support</h1>
+      <p class="mt-4 max-w-2xl text-purple-100">
+        Rep the Tigers! Our store partner prints and ships every order
+        directly to you — browse below and order straight from the shop.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-12">
+    <div class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+      {products.map((p) => (
+        <article class="flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white">
+          <div class="flex aspect-square items-center justify-center bg-slate-50 p-2">
+            <Image src={p.img} alt={p.name} widths={[200, 400]} sizes="(min-width:1024px) 25vw, 50vw" class="h-full w-full object-contain" />
+          </div>
+          <div class="flex flex-1 flex-col p-4">
+            <h3 class="font-semibold text-slate-900">{p.name}</h3>
+            <a
+              href={STORE_BASE + p.path}
+              target="_blank"
+              rel="noopener"
+              class="mt-4 inline-flex items-center justify-center rounded-md bg-purple-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-purple-800"
+            >
+              Shop this design →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-8 rounded-lg border border-purple-200 bg-purple-50 p-5 text-sm text-slate-700">
+      <p>
+        <strong>How it works:</strong> "Shop this design" links out to our
+        store partner's site, where sizes, colors, and current pricing are
+        shown. They collect payment and ship directly to you — the booster
+        club never touches inventory or fulfillment. See the
+        <a
+          href={STORE_BASE + "/shop"}
+          target="_blank"
+          rel="noopener"
+          class="font-medium text-purple-800 hover:text-purple-900"
+        >full store →</a> for more designs and product types.
+      </p>
+    </div>
+  </section>
+</Layout>
