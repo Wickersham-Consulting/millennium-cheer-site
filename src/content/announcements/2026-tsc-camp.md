@@ -10,5 +10,5 @@ summary: |
   Dinner will be provided by the Booster Club after the final showcase, while the team waits for the bus. Parents provide in-room breakfast and snacks.
 
   More details on the TSC Camp Showcase will be posted on SportsYou.
-published: true
+published: false
 ---

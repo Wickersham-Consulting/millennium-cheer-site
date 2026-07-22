@@ -1,6 +1,6 @@
 ---
 title: "Team & Senior Banner Photos — Aug 24"
-date: 2026-06-22
+date: 2026-07-21
 deadline: 2026-08-14
 linkLabel: Pay Senior Photos $60
 linkPending: true
