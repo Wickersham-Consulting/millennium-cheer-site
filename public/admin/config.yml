@@ -478,3 +478,56 @@ collections:
           widget: "boolean",
           default: true,
         }
+
+  # ---------------------------------------------------------------------
+  # Payment Links — the "Make a Payment" list on /parent-info. Mirrors the
+  # booster club's running Google Doc of Square QR codes/links. Add an entry
+  # as a fundraiser opens; unpublish (or delete) once it closes.
+  # ---------------------------------------------------------------------
+  - name: paymentLinks
+    label: Payment Links
+    label_singular: Payment Link
+    folder: src/content/payment-links
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: [order, title]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Payment link",
+          name: "link",
+          widget: "string",
+          required: false,
+          hint: "Paste the URL from Square (or a Google Form for sign-ups).",
+        }
+      - {
+          label: "Link coming soon (grey out button)",
+          name: "linkPending",
+          widget: "boolean",
+          default: false,
+          hint: "Tick to show a greyed 'coming soon' button until the link is ready. Untick once you paste the link above.",
+        }
+      - {
+          label: "Note",
+          name: "note",
+          widget: "string",
+          required: false,
+          hint: "Short context, e.g. due date or who it's for.",
+        }
+      - {
+          label: "Sort order",
+          name: "order",
+          widget: "number",
+          default: 0,
+          hint: "Lower numbers show first.",
+        }
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }

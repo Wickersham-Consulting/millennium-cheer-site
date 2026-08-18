@@ -154,4 +154,22 @@ const minutes = defineCollection({
   }),
 });
 
-export const collections = { events, announcements, achievements, thanks, minutes, gallery, sponsors, competitions };
+// Master list of active Square/payment links, shown on /parent-info under
+// "Make a Payment". Mirrors the booster club's Google Doc of QR codes — add
+// an entry here as a fundraiser opens, unpublish (or delete) once it closes.
+const paymentLinks = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/payment-links" }),
+  schema: z.object({
+    title: z.string(),
+    link: z.string().url().optional(),
+    // True when a link is expected but not ready yet — renders a greyed
+    // "coming soon" button. Flip to false once `link` is set.
+    linkPending: z.boolean().default(false),
+    note: z.string().optional(),
+    // Manual sort order, lowest first.
+    order: z.number().default(0),
+    published: z.boolean().default(true),
+  }),
+});
+
+export const collections = { events, announcements, achievements, thanks, minutes, gallery, sponsors, competitions, paymentLinks };
