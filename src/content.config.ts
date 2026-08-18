@@ -51,6 +51,10 @@ const announcements = defineCollection({
     // — for a link that isn't ready yet (e.g. a Square payment link still TBD).
     // Set the real link and flip this to false to make it live.
     linkPending: z.boolean().default(false),
+    // True for a small number of time-sensitive, must-see announcements —
+    // shows a banner above the homepage hero (and a callout on Parent Info)
+    // in addition to its normal spot in the Announcements list. Use sparingly.
+    highlight: z.boolean().default(false),
     published: z.boolean().default(true),
   }),
 });

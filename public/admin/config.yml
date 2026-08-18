@@ -263,6 +263,13 @@ collections:
           hint: "Tick to show the button greyed-out and non-clickable until the link is ready. Untick once you paste the real link above.",
         }
       - {
+          label: "Highlight on homepage banner + Parent Info",
+          name: "highlight",
+          widget: "boolean",
+          default: false,
+          hint: "Use sparingly, for must-see time-sensitive items only (e.g. a required form with a deadline). Shows a banner above the homepage hero and a callout on Parent Info, in addition to its normal spot in the Announcements list.",
+        }
+      - {
           label: "Published",
           name: "published",
           widget: "boolean",

@@ -4,6 +4,7 @@ date: 2026-08-18
 deadline: 2026-08-24
 link: https://app.screencastify.com/watch/x5lFinPs6M9aRS84ABk1
 linkLabel: Watch the Parent Video →
+highlight: true
 summary: |
   Every parent/guardian needs to watch the Millennium Athletics Parent Video from our Athletic Director and complete the form on it — required by **Monday, August 24**.
 

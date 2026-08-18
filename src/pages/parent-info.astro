@@ -6,6 +6,10 @@ const paymentLinks = (await getCollection("paymentLinks", ({ data }) => data.pub
   (a, b) => a.data.order - b.data.order,
 );
 
+const highlighted = (
+  await getCollection("announcements", ({ data }) => data.published && data.highlight)
+).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
 // 2026–27 full-season donation schedule, split by JV/Varsity Summer Start,
 // JV/Varsity Fall Start, and Freshman Athlete tracks.
 // Source of truth is the PDF in public/downloads/; this table mirrors it for
@@ -87,6 +91,41 @@ const otherFees: { item: string; detail: string }[] = [
       </p>
     </div>
   </section>
+
+  {
+    highlighted.length > 0 && (
+      <section class="mx-auto max-w-5xl px-6 pt-8">
+        {highlighted.map((item) => (
+          <div class="rounded-lg border border-amber-300 bg-amber-50 p-5">
+            <p class="font-semibold text-amber-950">
+              📢 {item.data.title}
+              {item.data.deadline && (
+                <span class="font-normal">
+                  {" "}
+                  — due{" "}
+                  {item.data.deadline.toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    timeZone: "UTC",
+                  })}
+                </span>
+              )}
+            </p>
+            {item.data.link && !item.data.linkPending && (
+              <a
+                href={item.data.link}
+                target="_blank"
+                rel="noopener"
+                class="mt-3 inline-flex items-center rounded-md bg-amber-950 px-4 py-2 text-sm font-semibold text-amber-50 transition hover:bg-amber-900"
+              >
+                {item.data.linkLabel ?? "Learn more →"}
+              </a>
+            )}
+          </div>
+        ))}
+      </section>
+    )
+  }
 
   <section class="mx-auto max-w-5xl px-6 py-12">
     <div class="flex flex-wrap items-end justify-between gap-3">
