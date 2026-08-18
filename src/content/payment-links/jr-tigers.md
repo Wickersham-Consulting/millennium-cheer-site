@@ -1,7 +1,7 @@
 ---
-title: Jr. Tigers Night Sign-Up
+title: Jr. Tigers Registration
 link: https://forms.gle/4KJ1fy7HoRQf1V5r9
-note: Sign up young cheerleaders for Jr. Tigers Night, Friday, September 11.
+note: $75 — clinics Sept 8 & 10, game night Sept 11. Registration deadline September 6.
 order: 30
 published: true
 ---
