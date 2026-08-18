@@ -23,7 +23,7 @@ const competitions = (await getCollection("competitions", ({ data }) => data.pub
 <Layout>
   {
     highlighted.map((item) => (
-      <div class="bg-amber-400 text-amber-950">
+      <div class="bg-purple-700 text-white">
         <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-6 py-3 text-sm">
           <p class="font-semibold">
             📢 {item.data.title}
@@ -44,7 +44,7 @@ const competitions = (await getCollection("competitions", ({ data }) => data.pub
               href={item.data.link}
               target="_blank"
               rel="noopener"
-              class="shrink-0 rounded-md bg-amber-950 px-3 py-1.5 font-semibold text-amber-50 transition hover:bg-amber-900"
+              class="shrink-0 rounded-md bg-white px-3 py-1.5 font-semibold text-purple-900 transition hover:bg-purple-50"
             >
               {item.data.linkLabel ?? "Learn more →"}
             </a>
