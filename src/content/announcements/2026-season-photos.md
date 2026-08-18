@@ -2,8 +2,9 @@
 title: "Team & Senior Banner Photos — Aug 24"
 date: 2026-07-21
 deadline: 2026-08-14
+link: https://square.link/u/OUyUWeZ3
 linkLabel: Pay Senior Photos $60
-linkPending: true
+linkPending: false
 summary: |
   Team and Senior Banner Photos with Phireworx Photography — Monday, August 24, 4:30–6:30 PM. This is an indoor session, with a possible spring shoot if the calendar allows. Group photos will be taken for future social media and flyer use.
 
