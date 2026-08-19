@@ -111,79 +111,6 @@ const competitions = (await getCollection("competitions", ({ data }) => data.pub
   </section>
 
   {
-    achievements.length > 0 && (
-      <section class="border-b border-slate-100 bg-white">
-        <div class="mx-auto max-w-5xl px-6 py-16">
-          <div class="flex items-baseline justify-between">
-            <h2 class="text-2xl font-bold tracking-tight">Recent Achievements</h2>
-            <span class="text-sm text-slate-500">{achievements[0].data.season}</span>
-          </div>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2">
-            {achievements.map((item) => (
-              <article class="overflow-hidden rounded-lg border border-slate-200 bg-white">
-                <Image
-                  src={item.data.photo}
-                  alt={item.data.photoAlt}
-                  widths={[400, 800]}
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                  class="h-56 w-full object-cover"
-                />
-                <div class="p-5">
-                  <p class="text-xs font-semibold uppercase tracking-wider text-purple-700">
-                    {item.data.season}
-                  </p>
-                  <h3 class="mt-1 text-lg font-semibold">{item.data.title}</h3>
-                  {item.data.summary && (
-                    <p class="mt-2 text-sm text-slate-600"><RichText text={item.data.summary} /></p>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  {
-    competitions.length > 0 && (
-      <section class="border-b border-purple-900 bg-purple-950 text-white">
-        <div class="mx-auto max-w-5xl px-6 py-16">
-          <h2 class="text-2xl font-bold tracking-tight">Competition Schedule</h2>
-          <p class="mt-2 text-purple-200">
-            Come cheer on the Tigers! Our 2026–27 competition season:
-          </p>
-          <ul class="mt-8 divide-y divide-purple-800/60 border-y border-purple-800/60">
-            {competitions.map((c) => (
-              <li class="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-4">
-                <span class="shrink-0 font-semibold text-purple-300 sm:w-36">
-                  {c.data.dateLabel}
-                </span>
-                <div class="flex-1">
-                  <p class="font-semibold">{c.data.title}</p>
-                  <p class="text-sm text-purple-200">
-                    {[c.data.teams, c.data.location].filter(Boolean).join(" · ")}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-    )
-  }
-
-  <section class="mx-auto max-w-5xl px-6 py-16">
-    <h2 class="text-2xl font-bold tracking-tight">About the Club</h2>
-    <p class="mt-4 max-w-3xl text-slate-600">
-      We're a parent-run, all-volunteer 501(c)(3) supporting Millennium High
-      School's cheer program. We organize fundraisers throughout the year —
-      car washes, concessions, merchandise, and direct donation drives — and
-      every dollar raised goes back to our athletes.
-    </p>
-  </section>
-
-  {
     announcements.length > 0 && (
       <section class="border-y border-slate-100 bg-purple-50">
         <div class="mx-auto max-w-5xl px-6 py-16">
@@ -247,6 +174,79 @@ const competitions = (await getCollection("competitions", ({ data }) => data.pub
               </article>
             ))}
           </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="mx-auto max-w-5xl px-6 py-16">
+    <h2 class="text-2xl font-bold tracking-tight">About the Club</h2>
+    <p class="mt-4 max-w-3xl text-slate-600">
+      We're a parent-run, all-volunteer 501(c)(3) supporting Millennium High
+      School's cheer program. We organize fundraisers throughout the year —
+      car washes, concessions, merchandise, and direct donation drives — and
+      every dollar raised goes back to our athletes.
+    </p>
+  </section>
+
+  {
+    achievements.length > 0 && (
+      <section class="border-b border-slate-100 bg-white">
+        <div class="mx-auto max-w-5xl px-6 py-16">
+          <div class="flex items-baseline justify-between">
+            <h2 class="text-2xl font-bold tracking-tight">Recent Achievements</h2>
+            <span class="text-sm text-slate-500">{achievements[0].data.season}</span>
+          </div>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2">
+            {achievements.map((item) => (
+              <article class="overflow-hidden rounded-lg border border-slate-200 bg-white">
+                <Image
+                  src={item.data.photo}
+                  alt={item.data.photoAlt}
+                  widths={[400, 800]}
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  class="h-56 w-full object-cover"
+                />
+                <div class="p-5">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-purple-700">
+                    {item.data.season}
+                  </p>
+                  <h3 class="mt-1 text-lg font-semibold">{item.data.title}</h3>
+                  {item.data.summary && (
+                    <p class="mt-2 text-sm text-slate-600"><RichText text={item.data.summary} /></p>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    competitions.length > 0 && (
+      <section class="border-b border-purple-900 bg-purple-950 text-white">
+        <div class="mx-auto max-w-5xl px-6 py-16">
+          <h2 class="text-2xl font-bold tracking-tight">Competition Schedule</h2>
+          <p class="mt-2 text-purple-200">
+            Come cheer on the Tigers! Our 2026–27 competition season:
+          </p>
+          <ul class="mt-8 divide-y divide-purple-800/60 border-y border-purple-800/60">
+            {competitions.map((c) => (
+              <li class="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-4">
+                <span class="shrink-0 font-semibold text-purple-300 sm:w-36">
+                  {c.data.dateLabel}
+                </span>
+                <div class="flex-1">
+                  <p class="font-semibold">{c.data.title}</p>
+                  <p class="text-sm text-purple-200">
+                    {[c.data.teams, c.data.location].filter(Boolean).join(" · ")}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     )
