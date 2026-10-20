@@ -1,15 +1,17 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import SponsorCard from "../components/SponsorCard.astro";
 
 const pdfPath = "/downloads/millennium-cheer-sponsorship-packet.pdf";
 const sponsorshipEmail = "sponsorship@millenniumcheer.com";
 const squarePaymentLink = "https://square.link/u/r1lTcucy?src=webqr";
 
-const sponsors = (await getCollection("sponsors", ({ data }) => data.published)).sort(
+const allSponsors = (await getCollection("sponsors", ({ data }) => data.published)).sort(
   (a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name),
 );
+const sponsors = allSponsors.filter((s) => s.data.category === "sponsor");
+const mealSupporters = allSponsors.filter((s) => s.data.category === "meal");
 
 const tiers = [
   {
@@ -17,14 +19,14 @@ const tiers = [
     price: "$1,500",
     accent: "from-purple-700 to-purple-500",
     benefits: [
-      "Yearlong recognition on the cheer program website",
-      "LARGE business logo banner",
-      "Game Day social media shoutout (Instagram page + story)",
-      "PA announcement at all Varsity Home Games",
-      "4 tickets to MHS Football game for Jr. Tigers Cheer Event",
-      "Personalized social media takeover (Instagram page + story)",
-      "T-shirt toss at MHS home games",
-      "Plaque for sponsor to display",
+      "Yearlong recognition on MillenniumCheer.com",
+      "Business logo displayed on marquee at MHS basketball home games",
+      "Weekly social media shoutout from @millennium_cheer Instagram page and story",
+      "PA announcement at all varsity home basketball games",
+      "4 tickets to an MHS home basketball game",
+      "T-shirt toss at selected MHS basketball home games",
+      "Recognition at end of season banquet program",
+      "Sponsorship plaque",
     ],
   },
   {
@@ -32,11 +34,12 @@ const tiers = [
     price: "$1,000",
     accent: "from-purple-600 to-purple-400",
     benefits: [
-      "Yearlong recognition on the cheer program website",
-      "LARGE business logo banner",
-      "Game Day social media shoutout (Instagram page + story)",
-      "PA announcement at all Varsity Home Football Games",
-      "2 tickets to MHS Football game for Jr. Tigers Cheer Event",
+      "Yearlong recognition on MillenniumCheer.com",
+      "Business logo displayed on marquee at MHS basketball home games",
+      "Weekly social media shoutout from @millennium_cheer Instagram page and story",
+      "PA announcement at all varsity home basketball games",
+      "2 tickets to an MHS home basketball game",
+      "Recognition at end of season banquet program",
     ],
   },
   {
@@ -44,12 +47,14 @@ const tiers = [
     price: "$500",
     accent: "from-purple-500 to-purple-300",
     benefits: [
-      "Yearlong recognition on the cheer program website",
-      "SMALL business logo banner",
-      "Game Day social media shoutout (Instagram page + story)",
+      "Yearlong recognition on MillenniumCheer.com",
+      "Business logo displayed on marquee at MHS basketball home games",
+      "Weekly social media shoutout from @millennium_cheer Instagram page and story",
+      "Recognition at end of season banquet program",
     ],
   },
 ];
+
 ---
 
 <Layout
@@ -217,43 +222,29 @@ const tiers = [
             support the businesses that support our Tigers!
           </p>
           <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
-            {sponsors.map((sponsor) => {
-              const card = (
-                <div class="flex h-32 w-full items-center justify-center rounded-lg border border-slate-200 bg-white p-6 transition hover:border-purple-300 hover:shadow-sm">
-                  {sponsor.data.logo ? (
-                    <Image
-                      src={sponsor.data.logo}
-                      alt={sponsor.data.name}
-                      widths={[200, 400]}
-                      sizes="(min-width: 640px) 30vw, 45vw"
-                      class="max-h-20 w-auto object-contain"
-                    />
-                  ) : (
-                    <span class="text-center text-sm font-semibold text-slate-700">
-                      {sponsor.data.name}
-                    </span>
-                  )}
-                </div>
-              );
-              return sponsor.data.url ? (
-                <a
-                  href={sponsor.data.url}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label={sponsor.data.name}
-                >
-                  {card}
-                </a>
-              ) : (
-                card
-              );
-            })}
+            {sponsors.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
           </div>
         </div>
       </section>
     )
   }
 
+  {
+    mealSupporters.length > 0 && (
+      <section class="border-t border-slate-100 bg-purple-50">
+        <div class="mx-auto max-w-5xl px-6 py-16">
+          <h2 class="text-2xl font-bold tracking-tight">Team Meal Supporters</h2>
+          <p class="mt-3 max-w-2xl text-slate-600">
+            Thank you to the local businesses that fed our athletes during
+            camp and team events. Please thank them with your business!
+          </p>
+          <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
+            {mealSupporters.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
   <section class="border-y border-slate-100 bg-white">
     <div class="mx-auto max-w-5xl px-6 py-16">
       <h2 class="text-2xl font-bold tracking-tight">Three Ways to Give</h2>

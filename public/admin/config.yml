@@ -429,6 +429,18 @@ collections:
           hint: "Lower numbers show first.",
         }
       - {
+          label: "Category",
+          name: "category",
+          widget: "select",
+          options:
+            [
+              { label: "Sponsor", value: "sponsor" },
+              { label: "Team meal supporter", value: "meal" },
+            ],
+          default: "sponsor",
+          hint: "Meal supporters appear in their own 'Team Meal Supporters' section.",
+        }
+      - {
           label: "Published",
           name: "published",
           widget: "boolean",

@@ -124,6 +124,9 @@ const sponsors = defineCollection({
       url: z.string().url().optional(),
       // Lower number sorts first; ties fall back to name.
       order: z.number().default(0),
+      // "sponsor" = paid sponsorship wall; "meal" = businesses that donated
+      // team meals (shown in the "Team Meal Supporters" section).
+      category: z.enum(["sponsor", "meal"]).default("sponsor"),
       published: z.boolean().default(true),
     }),
 });
