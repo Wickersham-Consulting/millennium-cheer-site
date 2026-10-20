@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import SponsorCard from "../components/SponsorCard.astro";
@@ -10,7 +11,8 @@ const squarePaymentLink = "https://square.link/u/r1lTcucy?src=webqr";
 const allSponsors = (await getCollection("sponsors", ({ data }) => data.published)).sort(
   (a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name),
 );
-const sponsors = allSponsors.filter((s) => s.data.category === "sponsor");
+const featuredSponsors = allSponsors.filter((s) => s.data.category === "sponsor" && s.data.featuredImage);
+const sponsors = allSponsors.filter((s) => s.data.category === "sponsor" && !s.data.featuredImage);
 const communityPartners = allSponsors.filter((s) => s.data.category === "partner");
 
 const tiers = [
@@ -213,17 +215,41 @@ const tiers = [
   </section>
 
   {
-    sponsors.length > 0 && (
+    sponsors.length + featuredSponsors.length > 0 && (
       <section class="bg-white">
         <div class="mx-auto max-w-5xl px-6 py-16">
           <h2 class="text-2xl font-bold tracking-tight">Thank You to Our Sponsors</h2>
           <p class="mt-3 max-w-2xl text-slate-600">
-            Our 2026–27 season is powered by these community partners. Please
+            Our 2026–27 season is powered by these sponsors. Please
             support the businesses that support our Tigers!
           </p>
-          <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
-            {sponsors.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
-          </div>
+          {featuredSponsors.map((sponsor) => {
+            const ad = (
+              <Image
+                src={sponsor.data.featuredImage!}
+                alt={`${sponsor.data.name} ad`}
+                widths={[640, 960, 1280]}
+                sizes="(min-width: 768px) 672px, 100vw"
+                class="h-auto w-full rounded-lg border border-slate-200 shadow-sm"
+              />
+            );
+            return (
+              <div class="mx-auto mt-10 max-w-2xl">
+                {sponsor.data.url ? (
+                  <a href={sponsor.data.url} target="_blank" rel="noopener" aria-label={sponsor.data.name}>
+                    {ad}
+                  </a>
+                ) : (
+                  ad
+                )}
+              </div>
+            );
+          })}
+          {sponsors.length > 0 && (
+            <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
+              {sponsors.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+            </div>
+          )}
         </div>
       </section>
     )

@@ -125,6 +125,9 @@ const sponsors = defineCollection({
       // Optional short caption shown under the card (e.g. "Host of our car wash
       // fundraisers"). Mainly used for community partners.
       note: z.string().optional(),
+      // Optional larger image (e.g. a sponsor-supplied photo ad). When set, the
+      // sponsor gets a full-width featured card above the regular logo grid.
+      featuredImage: image().optional(),
       // Lower number sorts first; ties fall back to name.
       order: z.number().default(0),
       // "sponsor" = paid sponsorship wall; "partner" = businesses that donate

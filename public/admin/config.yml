@@ -421,6 +421,13 @@ collections:
           hint: "Optional — links the logo to the sponsor's site.",
         }
       - {
+          label: "Featured ad image",
+          name: "featuredImage",
+          widget: "image",
+          required: false,
+          hint: "Optional. A sponsor-supplied ad shown large, full-width, above the logo grid. Leave blank for a normal logo card.",
+        }
+      - {
           label: "Note",
           name: "note",
           widget: "string",

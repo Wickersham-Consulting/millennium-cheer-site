@@ -1,6 +1,6 @@
 ---
 name: Styled by Sarah
-logo: ../../assets/sponsors/styled-by-sarah.png
+featuredImage: ../../assets/sponsors/styled-by-sarah-ad.png
 order: 6
 category: sponsor
 published: true
