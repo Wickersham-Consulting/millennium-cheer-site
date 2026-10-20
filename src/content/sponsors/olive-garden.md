@@ -1,6 +1,6 @@
 ---
 name: Olive Garden
 order: 1
-category: meal
+category: partner
 published: true
 ---

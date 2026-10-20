@@ -7,27 +7,18 @@ interface Props {
 }
 
 const { sponsor } = Astro.props;
-const { name, logo, url } = sponsor.data;
+const { name, logo, url, note } = sponsor.data;
+const Wrapper = url ? "a" : "div";
+const wrapperProps = url ? { href: url, target: "_blank", rel: "noopener", "aria-label": name } : {};
 ---
 
-{
-  url ? (
-    <a href={url} target="_blank" rel="noopener" aria-label={name}>
-      <div class="flex h-32 w-full items-center justify-center rounded-lg border border-slate-200 bg-white p-6 transition hover:border-purple-300 hover:shadow-sm">
-        {logo ? (
-          <Image src={logo} alt={name} widths={[200, 400]} sizes="(min-width: 640px) 30vw, 45vw" class="max-h-20 w-auto object-contain" />
-        ) : (
-          <span class="text-center text-sm font-semibold text-slate-700">{name}</span>
-        )}
-      </div>
-    </a>
-  ) : (
-    <div class="flex h-32 w-full items-center justify-center rounded-lg border border-slate-200 bg-white p-6">
-      {logo ? (
-        <Image src={logo} alt={name} widths={[200, 400]} sizes="(min-width: 640px) 30vw, 45vw" class="max-h-20 w-auto object-contain" />
-      ) : (
-        <span class="text-center text-sm font-semibold text-slate-700">{name}</span>
-      )}
-    </div>
-  )
-}
+<Wrapper {...wrapperProps} class="block">
+  <div class={`flex h-32 w-full items-center justify-center rounded-lg border border-slate-200 bg-white p-6 ${url ? "transition hover:border-purple-300 hover:shadow-sm" : ""}`}>
+    {logo ? (
+      <Image src={logo} alt={name} widths={[200, 400]} sizes="(min-width: 640px) 30vw, 45vw" class="max-h-20 w-auto object-contain" />
+    ) : (
+      <span class="text-center text-sm font-semibold text-slate-700">{name}</span>
+    )}
+  </div>
+  {note && <p class="mt-2 text-center text-xs font-medium text-purple-800">{note}</p>}
+</Wrapper>

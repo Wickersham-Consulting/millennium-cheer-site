@@ -421,6 +421,13 @@ collections:
           hint: "Optional — links the logo to the sponsor's site.",
         }
       - {
+          label: "Note",
+          name: "note",
+          widget: "string",
+          required: false,
+          hint: "Optional short caption under the card, e.g. 'Host of our car wash fundraisers'.",
+        }
+      - {
           label: "Sort order",
           name: "order",
           widget: "number",
@@ -435,10 +442,10 @@ collections:
           options:
             [
               { label: "Sponsor", value: "sponsor" },
-              { label: "Team meal supporter", value: "meal" },
+              { label: "Community partner", value: "partner" },
             ],
           default: "sponsor",
-          hint: "Meal supporters appear in their own 'Team Meal Supporters' section.",
+          hint: "Community partners (donated space, food, goods, or services) appear in their own 'Community Partners' section.",
         }
       - {
           label: "Published",

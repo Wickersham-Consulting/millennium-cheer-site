@@ -11,7 +11,7 @@ const allSponsors = (await getCollection("sponsors", ({ data }) => data.publishe
   (a, b) => a.data.order - b.data.order || a.data.name.localeCompare(b.data.name),
 );
 const sponsors = allSponsors.filter((s) => s.data.category === "sponsor");
-const mealSupporters = allSponsors.filter((s) => s.data.category === "meal");
+const communityPartners = allSponsors.filter((s) => s.data.category === "partner");
 
 const tiers = [
   {
@@ -230,16 +230,17 @@ const tiers = [
   }
 
   {
-    mealSupporters.length > 0 && (
+    communityPartners.length > 0 && (
       <section class="border-t border-slate-100 bg-purple-50">
         <div class="mx-auto max-w-5xl px-6 py-16">
-          <h2 class="text-2xl font-bold tracking-tight">Team Meal Supporters</h2>
+          <h2 class="text-2xl font-bold tracking-tight">Community Partners</h2>
           <p class="mt-3 max-w-2xl text-slate-600">
-            Thank you to the local businesses that fed our athletes during
-            camp and team events. Please thank them with your business!
+            Thank you to the local businesses that generously donate space,
+            food, goods, and services to support our team. Please support the
+            businesses that support our Tigers!
           </p>
           <div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
-            {mealSupporters.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
+            {communityPartners.map((sponsor) => <SponsorCard sponsor={sponsor} />)}
           </div>
         </div>
       </section>

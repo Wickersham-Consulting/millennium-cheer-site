@@ -122,11 +122,14 @@ const sponsors = defineCollection({
       name: z.string(),
       logo: image().optional(),
       url: z.string().url().optional(),
+      // Optional short caption shown under the card (e.g. "Host of our car wash
+      // fundraisers"). Mainly used for community partners.
+      note: z.string().optional(),
       // Lower number sorts first; ties fall back to name.
       order: z.number().default(0),
-      // "sponsor" = paid sponsorship wall; "meal" = businesses that donated
-      // team meals (shown in the "Team Meal Supporters" section).
-      category: z.enum(["sponsor", "meal"]).default("sponsor"),
+      // "sponsor" = paid sponsorship wall; "partner" = businesses that donate
+      // services, supplies, or meals (shown in the "Community Partners" section).
+      category: z.enum(["sponsor", "partner"]).default("sponsor"),
       published: z.boolean().default(true),
     }),
 });
